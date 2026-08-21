@@ -28,10 +28,20 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 
 ## Setup
 
+Cara 1 — import dump database (paling cepat, sudah termasuk data awal):
+
 ```bash
 composer install
 cp env .env          # sesuaikan database.default.*
-php spark key:generate
+mysql -u root -p < database/simrs.sql
+php spark serve --port 8080
+```
+
+Cara 2 — migrasi + seeder dari awal:
+
+```bash
+composer install
+cp env .env
 php spark migrate
 php spark db:seed SimrsSeeder
 php spark serve --port 8080
