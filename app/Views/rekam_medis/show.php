@@ -39,9 +39,34 @@
             <div class="col-md-3"><strong>TB:</strong> <?= esc($pemeriksaan['tinggi_badan'] ?? '-') ?> cm</div>
         </div>
         <p><strong>Anamnesis:</strong> <?= esc($pemeriksaan['anamnesis'] ?? '-') ?></p>
-        <p><strong>Diagnosa:</strong> <?= esc($pemeriksaan['diagnosa'] ?? '-') ?></p>
+        <p><strong>Diagnosa:</strong> <?= esc($pemeriksaan['diagnosa'] ?? '-') ?>
+        <?php if ($pemeriksaan['icd10_kode']): ?>
+        <span class="badge bg-dark">ICD-10: <?= esc($pemeriksaan['icd10_kode']) ?> — <?= esc($pemeriksaan['icd10_nama']) ?></span>
+        <?php endif; ?></p>
         <p class="mb-0"><strong>Tindakan:</strong> <?= esc($pemeriksaan['nama_tindakan'] ?? '-') ?>
         <?php if ($pemeriksaan['catatan']): ?> &bull; <strong>Catatan:</strong> <?= esc($pemeriksaan['catatan']) ?><?php endif; ?></p>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if (! empty($radOrders)): ?>
+<div class="card mb-3">
+    <div class="card-header">Radiologi</div>
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead><tr><th>No. Order</th><th>Pemeriksaan</th><th>Hasil</th><th>Kesan</th><th>Status</th></tr></thead>
+            <tbody>
+                <?php foreach ($radOrders as $ro): ?>
+                <tr>
+                    <td><?= esc($ro['no_order']) ?></td>
+                    <td>[<?= esc($ro['modalitas']) ?>] <?= esc($ro['nama_pemeriksaan']) ?></td>
+                    <td><?= esc($ro['hasil'] ?? '-') ?></td>
+                    <td><?= esc($ro['kesan'] ?? '-') ?></td>
+                    <td><?= badge_status($ro['status'] === 'diminta' ? 'menunggu' : 'selesai') ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>
 <?php endif; ?>

@@ -41,7 +41,8 @@
     <table class="info">
         <tr><td style="width:25%">Tanda Vital</td><td>: TD <?= esc($pemeriksaan['tekanan_darah'] ?? '-') ?> mmHg, Suhu <?= esc($pemeriksaan['suhu'] ?? '-') ?> &deg;C, BB <?= esc($pemeriksaan['berat_badan'] ?? '-') ?> kg, TB <?= esc($pemeriksaan['tinggi_badan'] ?? '-') ?> cm</td></tr>
         <tr><td>Anamnesis</td><td>: <?= esc($pemeriksaan['anamnesis'] ?? '-') ?></td></tr>
-        <tr><td>Diagnosa</td><td>: <strong><?= esc($pemeriksaan['diagnosa'] ?? '-') ?></strong></td></tr>
+        <tr><td>Diagnosa</td><td>: <strong><?= esc($pemeriksaan['diagnosa'] ?? '-') ?></strong>
+        <?php if ($pemeriksaan['icd10_kode']): ?> (ICD-10: <?= esc($pemeriksaan['icd10_kode']) ?>)<?php endif; ?></td></tr>
         <tr><td>Tindakan</td><td>: <?= esc($pemeriksaan['nama_tindakan'] ?? '-') ?></td></tr>
         <?php if ($pemeriksaan['catatan']): ?>
         <tr><td>Catatan</td><td>: <?= esc($pemeriksaan['catatan']) ?></td></tr>
@@ -64,6 +65,18 @@
         <tbody>
             <?php foreach ($labHasil as $h): ?>
             <tr><td><?= esc($h['nama']) ?></td><td><?= esc($h['hasil'] ?? '-') ?> <?= esc($h['satuan'] ?? '') ?></td><td><?= esc($h['nilai_normal'] ?? '-') ?></td><td><?= esc($h['keterangan'] ?? '-') ?></td></tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php endif; ?>
+
+    <?php if (! empty($radOrders)): ?>
+    <h4>Hasil Radiologi</h4>
+    <table class="bordered">
+        <thead><tr><th>No. Order</th><th>Pemeriksaan</th><th>Hasil</th><th>Kesan</th></tr></thead>
+        <tbody>
+            <?php foreach ($radOrders as $ro): ?>
+            <tr><td><?= esc($ro['no_order']) ?></td><td><?= esc($ro['nama_pemeriksaan']) ?></td><td><?= esc($ro['hasil'] ?? '-') ?></td><td><?= esc($ro['kesan'] ?? '-') ?></td></tr>
             <?php endforeach; ?>
         </tbody>
     </table>

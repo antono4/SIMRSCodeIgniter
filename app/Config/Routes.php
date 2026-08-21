@@ -50,6 +50,14 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
         $routes->get('tiket/(:num)', 'Pendaftaran::tiket/$1');
     });
 
+    $routes->group('appointment', ['filter' => 'auth:admin,pendaftaran'], static function ($routes) {
+        $routes->get('/', 'Appointment::index');
+        $routes->get('create', 'Appointment::create');
+        $routes->post('store', 'Appointment::store');
+        $routes->get('status/(:num)/(:segment)', 'Appointment::status/$1/$2');
+        $routes->get('daftarkan/(:num)', 'Appointment::daftarkan/$1');
+    });
+
     $routes->group('pemeriksaan', ['filter' => 'auth:admin,dokter,perawat'], static function ($routes) {
         $routes->get('/', 'Pemeriksaan::index');
         $routes->get('create/(:num)', 'Pemeriksaan::create/$1');

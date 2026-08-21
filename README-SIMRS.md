@@ -9,6 +9,7 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 | Dashboard | Statistik pasien, kunjungan, kamar, stok obat, pendapatan + grafik kunjungan & pendapatan 7 hari (Chart.js) | Semua |
 | Pasien | CRUD data pasien, No. RM otomatis, riwayat pemeriksaan | admin, pendaftaran |
 | Pendaftaran | Registrasi kunjungan (rawat jalan / rawat inap / IGD), nomor antrian & tagihan otomatis dibuat | admin, pendaftaran |
+| Appointment | Booking jadwal dokter (cek bentrok jam), konfirmasi/batal, konversi ke pendaftaran kunjungan | admin, pendaftaran |
 | Antrian | Manajemen antrian per poli (panggil, panggil berikutnya, lewati, kembalikan), estimasi waktu tunggu, tiket antrian cetak 80mm, layar display publik dengan suara panggilan (TTS) di `/antrian/display` | admin, pendaftaran, perawat, dokter |
 | Laporan | Kunjungan per poli, pendapatan per hari, pasien baru, obat keluar per periode tanggal (cetak + export CSV) | admin, kasir |
 | Pemeriksaan | Antrian, anamnesis, vital sign, diagnosa, tindakan (masuk tagihan) | admin, dokter, perawat |
@@ -18,7 +19,7 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 | Obat | CRUD data obat, stok, kartu stok (mutasi masuk/keluar/opname) | admin, farmasi |
 | Resep | Buat resep dari pemeriksaan, proses resep (stok berkurang, masuk tagihan) | admin, dokter, farmasi |
 | Tagihan/Kasir | Invoice, detail biaya, pembayaran (tunai/transfer/BPJS), cetak invoice | admin, kasir |
-| Rekam Medis | Episode kunjungan lengkap (pemeriksaan, lab, resep, rawat inap) + cetak resume medis | admin, dokter, perawat |
+| Rekam Medis | Episode kunjungan lengkap (pemeriksaan + ICD-10, lab, radiologi, resep, rawat inap) + cetak resume medis | admin, dokter, perawat |
 | Dokter | CRUD data dokter, poli, jadwal, tarif | admin |
 | Master Data | CRUD poli, kamar, tindakan | admin |
 | User | CRUD user, role, aktif/nonaktif, reset password | admin |

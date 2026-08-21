@@ -28,6 +28,7 @@
                 <li class="nav-header">Pendaftaran</li>
                 <li><a class="nav-link" href="<?= base_url('pasien') ?>"><i class="bi bi-people"></i> Pasien</a></li>
                 <li><a class="nav-link" href="<?= base_url('pendaftaran') ?>"><i class="bi bi-clipboard-plus"></i> Pendaftaran</a></li>
+                <li><a class="nav-link" href="<?= base_url('appointment') ?>"><i class="bi bi-calendar-check"></i> Appointment</a></li>
                 <?php endif; ?>
 
                 <?php if (in_array($role, ['admin', 'pendaftaran', 'perawat', 'dokter'])): ?>

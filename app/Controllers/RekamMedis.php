@@ -42,14 +42,15 @@ class RekamMedis extends BaseController
         }
 
         $pemeriksaan = (new PemeriksaanModel())
-            ->select('pemeriksaan.*, tindakan.nama AS nama_tindakan')
+            ->select('pemeriksaan.*, tindakan.nama AS nama_tindakan, icd10.kode AS icd10_kode, icd10.nama AS icd10_nama')
             ->join('tindakan', 'tindakan.id = pemeriksaan.tindakan_id', 'left')
+            ->join('icd10', 'icd10.id = pemeriksaan.icd10_id', 'left')
             ->where('pendaftaran_id', $pendaftaranId)
             ->orderBy('id', 'DESC')
             ->first();
 
         $resep = $lab = $rawatInap = null;
-        $resepDetail = $labHasil = [];
+        $resepDetail = $labHasil = $radOrders = [];
 
         if ($pemeriksaan) {
             $resep = (new ResepModel())->where('pemeriksaan_id', $pemeriksaan['id'])->first();
@@ -61,6 +62,12 @@ class RekamMedis extends BaseController
             if ($lab) {
                 $labHasil = (new LabHasilModel())->getByOrder((int) $lab['id']);
             }
+
+            $radOrders = (new \App\Models\RadOrderModel())
+                ->select('rad_order.*, rad_jenis.nama AS nama_pemeriksaan, rad_jenis.modalitas')
+                ->join('rad_jenis', 'rad_jenis.id = rad_order.rad_jenis_id')
+                ->where('pemeriksaan_id', $pemeriksaan['id'])
+                ->findAll();
         }
 
         $rawatInap = (new RawatInapModel())
@@ -77,6 +84,7 @@ class RekamMedis extends BaseController
             'resepDetail' => $resepDetail,
             'lab'         => $lab,
             'labHasil'    => $labHasil,
+            'radOrders'   => $radOrders,
             'rawatInap'   => $rawatInap,
         ];
     }
