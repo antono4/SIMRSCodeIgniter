@@ -42,6 +42,8 @@ class Pendaftaran extends BaseController
         $data['no_registrasi'] = $this->model->generateNoRegistrasi();
         $data['tanggal']       = $data['tanggal'] ?? date('Y-m-d');
         $data['status']        = 'menunggu';
+        $data['no_antrian']    = $this->model->generateNoAntrian((int) $data['poli_id'], $data['tanggal']);
+        $data['status_antrian'] = 'menunggu';
 
         if (! $this->model->save($data)) {
             return redirect()->back()->withInput()->with('errors', $this->model->errors());
@@ -50,12 +52,12 @@ class Pendaftaran extends BaseController
         $pendaftaranId = $this->model->getInsertID();
         $this->buatTagihanAwal($pendaftaranId, (int) $data['dokter_id']);
 
-        return redirect()->to('/pendaftaran')->with('success', 'Pendaftaran berhasil. No. Registrasi: ' . $data['no_registrasi']);
+        return redirect()->to('/pendaftaran')->with('success', 'Pendaftaran berhasil. No. Registrasi: ' . $data['no_registrasi'] . ', No. Antrian: ' . $data['no_antrian']);
     }
 
     public function batal(int $id)
     {
-        $this->model->update($id, ['status' => 'batal']);
+        $this->model->update($id, ['status' => 'batal', 'status_antrian' => 'dilewati']);
 
         return redirect()->to('/pendaftaran')->with('success', 'Pendaftaran dibatalkan.');
     }

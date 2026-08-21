@@ -8,8 +8,19 @@ $routes->get('/login', 'Auth::login');
 $routes->post('/login', 'Auth::attempt');
 $routes->get('/logout', 'Auth::logout');
 
+// Layar display antrian untuk ruang tunggu (publik)
+$routes->get('/antrian/display', 'Antrian::display');
+
 $routes->group('', ['filter' => 'auth'], static function ($routes) {
     $routes->get('/dashboard', 'Dashboard::index');
+
+    $routes->group('antrian', ['filter' => 'auth:admin,pendaftaran,perawat,dokter'], static function ($routes) {
+        $routes->get('/', 'Antrian::index');
+        $routes->get('panggil/(:num)', 'Antrian::panggil/$1');
+        $routes->get('panggil-berikutnya/(:num)', 'Antrian::panggilBerikutnya/$1');
+        $routes->get('lewati/(:num)', 'Antrian::lewati/$1');
+        $routes->get('kembalikan/(:num)', 'Antrian::kembalikan/$1');
+    });
 
     $routes->group('pasien', ['filter' => 'auth:admin,pendaftaran'], static function ($routes) {
         $routes->get('/', 'Pasien::index');

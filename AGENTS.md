@@ -10,4 +10,5 @@
 - Helper global `rupiah()` dan `badge_status()` di `app/Helpers/format_helper.php` (autoload via Config/Autoload.php `$helpers = ['format']`)
 - Pola billing: `tagihan` + `tagihan_detail`; invoice dibuat otomatis saat pendaftaran (tarif konsultasi), ditambah saat pemeriksaan (tindakan), proses resep (obat), dan pasien rawat inap pulang (kamar × lama inap). Update `tagihan.total` secara manual setiap kali menambah detail.
 - Penomoran otomatis: `generateNoRm()` (RM######), `generateNoRegistrasi()` (REGyyyymmdd###), `generateNoResep()` (RSP...), `generateNoInvoice()` (INV...) di masing-masing model
+- Antrian: kolom `no_antrian` (KODEPOLI-### per poli per tanggal), `status_antrian` (menunggu/dipanggil/dilayani/selesai/dilewati), `waktu_panggil` di tabel pendaftaran; `generateNoAntrian()` di PendaftaranModel; manajemen di Antrian controller (panggil satu per poli, yang dilewati mundur ke belakang antrian); `/antrian/display` publik untuk TV (auto-refresh 10 dtk, tanpa auth)
 - View: layout `app/Views/layout/main.php` dengan menu berbasis `session()->get('role')`; Bootstrap 5 via CDN

@@ -30,6 +30,10 @@
                 <li><a class="nav-link" href="<?= base_url('pendaftaran') ?>"><i class="bi bi-clipboard-plus"></i> Pendaftaran</a></li>
                 <?php endif; ?>
 
+                <?php if (in_array($role, ['admin', 'pendaftaran', 'perawat', 'dokter'])): ?>
+                <li><a class="nav-link" href="<?= base_url('antrian') ?>"><i class="bi bi-list-ol"></i> Antrian</a></li>
+                <?php endif; ?>
+
                 <?php if (in_array($role, ['admin', 'dokter', 'perawat'])): ?>
                 <li class="nav-header">Pelayanan Medis</li>
                 <li><a class="nav-link" href="<?= base_url('pemeriksaan') ?>"><i class="bi bi-clipboard2-pulse"></i> Pemeriksaan</a></li>

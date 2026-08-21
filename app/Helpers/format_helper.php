@@ -23,6 +23,9 @@ if (! function_exists('badge_status')) {
             'rawat_jalan'  => 'info',
             'rawat_inap'   => 'primary',
             'igd'          => 'danger',
+            'dipanggil'    => 'success',
+            'dilayani'     => 'info',
+            'dilewati'     => 'dark',
         ];
         $color = $map[$status] ?? 'secondary';
 

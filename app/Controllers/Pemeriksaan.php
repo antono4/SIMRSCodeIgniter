@@ -25,7 +25,7 @@ class Pemeriksaan extends BaseController
             ->join('poli', 'poli.id = pendaftaran.poli_id')
             ->join('dokter', 'dokter.id = pendaftaran.dokter_id', 'left')
             ->whereIn('pendaftaran.status', ['menunggu', 'diperiksa'])
-            ->orderBy('pendaftaran.id')
+            ->orderBy('pendaftaran.no_antrian')
             ->findAll();
 
         return view('pemeriksaan/index', [
@@ -43,7 +43,7 @@ class Pemeriksaan extends BaseController
             return redirect()->to('/pemeriksaan')->with('error', 'Data pendaftaran tidak ditemukan.');
         }
 
-        $pendaftaranModel->update($pendaftaranId, ['status' => 'diperiksa']);
+        $pendaftaranModel->update($pendaftaranId, ['status' => 'diperiksa', 'status_antrian' => 'dilayani']);
 
         return view('pemeriksaan/form', [
             'title'       => 'Pemeriksaan Pasien',
@@ -62,7 +62,7 @@ class Pemeriksaan extends BaseController
         }
 
         $pendaftaranId = (int) $data['pendaftaran_id'];
-        (new PendaftaranModel())->update($pendaftaranId, ['status' => 'selesai']);
+        (new PendaftaranModel())->update($pendaftaranId, ['status' => 'selesai', 'status_antrian' => 'selesai']);
 
         // Tambahkan biaya tindakan ke tagihan
         if (! empty($data['tindakan_id'])) {

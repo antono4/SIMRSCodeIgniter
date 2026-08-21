@@ -8,14 +8,15 @@
     </div>
     <div class="card-body p-0">
         <table class="table table-striped table-hover mb-0">
-            <thead><tr><th>No. Registrasi</th><th>Tanggal</th><th>No. RM</th><th>Pasien</th><th>Poli</th><th>Dokter</th><th>Jenis</th><th>Status</th><th>Aksi</th></tr></thead>
+            <thead><tr><th>No. Registrasi</th><th>No. Antrian</th><th>Tanggal</th><th>No. RM</th><th>Pasien</th><th>Poli</th><th>Dokter</th><th>Jenis</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($pendaftaran)): ?>
-                <tr><td colspan="9" class="text-center text-muted">Belum ada pendaftaran</td></tr>
+                <tr><td colspan="10" class="text-center text-muted">Belum ada pendaftaran</td></tr>
                 <?php endif; ?>
                 <?php foreach ($pendaftaran as $p): ?>
                 <tr>
                     <td><?= esc($p['no_registrasi']) ?></td>
+                    <td><strong><?= esc($p['no_antrian'] ?? '-') ?></strong></td>
                     <td><?= esc($p['tanggal']) ?></td>
                     <td><?= esc($p['no_rm']) ?></td>
                     <td><?= esc($p['nama_pasien']) ?></td>
