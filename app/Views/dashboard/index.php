@@ -1,37 +1,51 @@
 <?= $this->extend('layout/main') ?>
 <?= $this->section('content') ?>
 
+<style>
+.stat-card { border-radius: .9rem; padding: 1.3rem; color: #fff; position: relative; overflow: hidden; transition: transform .2s; }
+.stat-card:hover { transform: translateY(-3px); }
+.stat-card .icon { position: absolute; right: 1rem; top: 1rem; opacity: .25; font-size: 2.6rem; }
+.stat-card .value { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.stat-card .label { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; opacity: .85; }
+.stat-card .sub { font-size: .75rem; opacity: .8; margin-top: .3rem; }
+.stat-1 { background: linear-gradient(135deg, #059669, #047857); }
+.stat-2 { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+.stat-3 { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.stat-4 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.mini-panel .card { border: 0; }
+</style>
+
 <div class="row g-3 mb-4">
     <div class="col-md-3">
-        <div class="card text-white bg-primary h-100">
-            <div class="card-body">
-                <h6>Total Pasien</h6>
-                <h2><?= $total_pasien ?></h2>
-            </div>
+        <div class="stat-card stat-1">
+            <i class="bi bi-people-fill icon"></i>
+            <div class="label">Total Pasien</div>
+            <div class="value"><?= $total_pasien ?></div>
+            <div class="sub">Terdaftar di sistem</div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-success h-100">
-            <div class="card-body">
-                <h6>Kunjungan Hari Ini</h6>
-                <h2><?= $kunjungan_hari_ini ?></h2>
-            </div>
+        <div class="stat-card stat-2">
+            <i class="bi bi-clipboard2-pulse-fill icon"></i>
+            <div class="label">Kunjungan Hari Ini</div>
+            <div class="value"><?= $kunjungan_hari_ini ?></div>
+            <div class="sub">Dari booking & walk-in</div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-info h-100">
-            <div class="card-body">
-                <h6>Pasien Dirawat</h6>
-                <h2><?= $pasien_dirawat ?></h2>
-            </div>
+        <div class="stat-card stat-3">
+            <i class="bi bi-house-heart-fill icon"></i>
+            <div class="label">Pasien Dirawat</div>
+            <div class="value"><?= $pasien_dirawat ?></div>
+            <div class="sub">Rawat inap saat ini</div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-warning h-100">
-            <div class="card-body">
-                <h6>Tagihan Belum Bayar</h6>
-                <h2><?= $tagihan_belum ?></h2>
-            </div>
+        <div class="stat-card stat-4">
+            <i class="bi bi-receipt icon"></i>
+            <div class="label">Tagihan Belum Bayar</div>
+            <div class="value"><?= $tagihan_belum ?></div>
+            <div class="sub">Perlu tindak lanjut kasir</div>
         </div>
     </div>
 </div>
@@ -39,29 +53,39 @@
 <div class="row g-3 mb-4">
     <div class="col-md-6">
         <div class="card h-100">
-            <div class="card-header">Kunjungan 7 Hari Terakhir</div>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-bar-chart text-primary"></i> Kunjungan 7 Hari Terakhir</span>
+                <span class="badge text-bg-primary"><?= $kunjungan_hari_ini ?> hari ini</span>
+            </div>
             <div class="card-body"><canvas id="chartKunjungan" height="180"></canvas></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="card h-100">
-            <div class="card-header">Pendapatan 7 Hari Terakhir</div>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-graph-up-arrow text-success"></i> Pendapatan 7 Hari Terakhir</span>
+                <span class="badge text-bg-success"><?= rupiah($pendapatan_hari_ini) ?></span>
+            </div>
             <div class="card-body"><canvas id="chartPendapatan" height="180"></canvas></div>
         </div>
     </div>
 </div>
 
 <?php if (! empty($appointment_hari_ini)): ?>
-<div class="card mb-4 border-warning">
-    <div class="card-header bg-warning-subtle"><i class="bi bi-calendar-check"></i> Appointment Hari Ini</div>
+<div class="card mb-4" style="border-left: 4px solid #f59e0b;">
+    <div class="card-header d-flex align-items-center gap-2">
+        <i class="bi bi-calendar-check text-warning"></i>
+        <span>Appointment Hari Ini</span>
+        <span class="badge text-bg-warning ms-auto"><?= count($appointment_hari_ini) ?></span>
+    </div>
     <div class="card-body p-0">
         <table class="table table-striped mb-0">
-            <thead><tr><th>Jam</th><th>Kode</th><th>Pasien</th><th>Dokter</th><th>Status</th></tr></thead>
+            <thead><tr><th style="width:15%">Jam</th><th>Kode</th><th>Pasien</th><th>Dokter</th><th>Status</th></tr></thead>
             <tbody>
                 <?php foreach ($appointment_hari_ini as $a): ?>
                 <tr>
-                    <td><strong><?= substr($a['jam'], 0, 5) ?></strong></td>
-                    <td><?= esc($a['kode']) ?></td>
+                    <td><span class="badge text-bg-dark fs-6"><?= substr($a['jam'], 0, 5) ?></span></td>
+                    <td class="fw-semibold"><?= esc($a['kode']) ?></td>
                     <td><?= esc($a['nama_pasien']) ?></td>
                     <td><?= esc($a['nama_dokter']) ?></td>
                     <td><?= badge_status($a['status']) ?></td>
@@ -118,10 +142,13 @@
                 </table>
             </div>
         </div>
-        <div class="card mt-3">
-            <div class="card-body">
-                <h6 class="text-muted">Pendapatan Hari Ini</h6>
-                <h3 class="text-success"><?= rupiah($pendapatan_hari_ini) ?></h3>
+        <div class="card mt-3" style="border-left: 4px solid #059669;">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-muted text-uppercase small fw-semibold">Pendapatan Hari Ini</div>
+                    <div class="display-6 fw-bold text-success mb-0"><?= rupiah($pendapatan_hari_ini) ?></div>
+                </div>
+                <i class="bi bi-cash-stack fs-1 text-success opacity-25"></i>
             </div>
         </div>
     </div>
