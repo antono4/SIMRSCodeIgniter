@@ -5,37 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - SIMRS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        body { background: linear-gradient(135deg, #0d47a1, #1976d2); min-height: 100vh; display: flex; align-items: center; }
-        .card { border-radius: 1rem; }
+        body { background: linear-gradient(135deg, #0d2b58 0%, #1b427f 50%, #2563eb 100%); min-height: 100vh; display: flex; align-items: center; }
+        .card { border-radius: 1.2rem; border: 0; box-shadow: 0 20px 60px rgba(0,0,0,.3); overflow: hidden; }
+        .bg-panel { background: linear-gradient(160deg, #1b427f, #0d2b58); }
+        .brand-icon { font-size: 3rem; color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,.25); }
+        .brand-name { color: #fff; font-weight: 700; letter-spacing: .04em; }
+        .brand-sub { color: rgba(255,255,255,.7); font-size: .85rem; }
+        .form-control:focus { border-color: #2563eb; box-shadow: 0 0 0 .2rem rgba(37,99,235,.2); }
+        .btn-login { background: linear-gradient(90deg, #2563eb, #1e40af); border: 0; font-weight: 600; padding: .7rem; border-radius: .5rem; transition: filter .2s; }
+        .btn-login:hover { filter: brightness(1.1); color: #fff; }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-body p-4">
-                    <h4 class="text-center mb-1">SIMRS</h4>
-                    <p class="text-center text-muted mb-4">Sistem Informasi Manajemen Rumah Sakit</p>
-
-                    <?php if (session()->getFlashdata('error')): ?>
-                        <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>
-                    <?php endif; ?>
-
-                    <form method="post" action="<?= base_url('login') ?>">
-                        <?= csrf_field() ?>
-                        <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input type="text" name="username" class="form-control" value="<?= old('username') ?>" required autofocus>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4 bg-panel d-flex flex-column justify-content-center align-items-center text-center p-4">
+                        <div>
+                            <i class="bi bi-hospital brand-icon"></i>
+                            <div class="brand-name fs-5 mt-2">SIMRS</div>
+                            <div class="brand-sub">Management System</div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body p-4">
+                            <h4 class="mb-1">Masuk</h4>
+                            <p class="text-muted mb-4">Sistem Informasi Manajemen Rumah Sakit</p>
+
+                            <?php if (session()->getFlashdata('error')): ?>
+                                <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>
+                            <?php endif; ?>
+
+                            <form method="post" action="<?= base_url('login') ?>">
+                                <?= csrf_field() ?>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Username</label>
+                                    <input type="text" name="username" class="form-control" value="<?= old('username') ?>" required autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Password</label>
+                                    <input type="password" name="password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-login w-100">Masuk</button>
+                            </form>
+                            <p class="text-muted small mt-3 mb-0 text-center">Demo: admin / password</p>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                    </form>
-                    <p class="text-muted small mt-3 mb-0 text-center">Default: admin / password</p>
+                    </div>
                 </div>
             </div>
         </div>

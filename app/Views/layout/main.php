@@ -9,23 +9,31 @@
     <style>
         :root { --simrs-primary: #0d47a1; }
         body { background: #f1f5f9; font-size: .95rem; }
-        .sidebar { min-height: 100vh; background: linear-gradient(180deg, #0d47a1, #0a3a82); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
-        .sidebar .brand { color: #fff; font-weight: 700; font-size: 1.15rem; padding: .75rem .5rem; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 1rem; }
-        .sidebar .nav-link { color: rgba(255,255,255,.75); padding: .45rem .75rem; border-radius: .5rem; margin: 1px 0; transition: background .15s, color .15s; }
-        .sidebar .nav-link:hover { color: #fff; background: rgba(255,255,255,.1); }
-        .sidebar .nav-link.active { color: #fff; background: rgba(255,255,255,.18); font-weight: 600; }
-        .sidebar .nav-header { color: rgba(255,255,255,.45); font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; margin-top: 1.1rem; margin-bottom: .25rem; padding: 0 .75rem; }
-        .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: .9rem 1.5rem; position: sticky; top: 0; z-index: 100; }
-        .topbar h4 { font-weight: 600; }
+        .sidebar { min-height: 100vh; background: linear-gradient(180deg, #1b427f, #0d2b58); position: sticky; top: 0; height: 100vh; overflow-y: auto; box-shadow: 2px 0 10px rgba(0,0,0,.15); }
+        .sidebar .brand { color: #fff; font-weight: 700; font-size: 1.1rem; padding: 1rem .5rem; border-bottom: 1px solid rgba(255,255,255,.12); margin-bottom: 1rem; letter-spacing: .02em; }
+        .sidebar .brand i { font-size: 1.4rem; vertical-align: middle; margin-right: .3rem; }
+        .sidebar .nav-link { color: rgba(255,255,255,.7); padding: .45rem .8rem; border-radius: .5rem; margin: 1px 0; transition: background .15s, color .15s, padding .15s; font-size: .88rem; }
+        .sidebar .nav-link i { width: 1.3rem; }
+        .sidebar .nav-link:hover { color: #fff; background: rgba(255,255,255,.08); padding-left: 1rem; }
+        .sidebar .nav-link.active { color: #fff; background: linear-gradient(90deg, #2563eb, #1e40af); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+        .sidebar .nav-header { color: rgba(255,255,255,.4); font-size: .66rem; text-transform: uppercase; letter-spacing: .1em; margin-top: 1.1rem; margin-bottom: .3rem; padding: 0 .8rem; }
+        .topbar { background: #fff; border-bottom: 1px solid #e7edf3; padding: .85rem 1.5rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px rgba(15,23,42,.05); }
+        .topbar h4 { font-weight: 650; color: #0f172a; }
         .content { padding: 1.5rem; }
-        .card { border: 0; box-shadow: 0 1px 3px rgba(15,23,42,.07); }
-        .card-header { background: #fff; font-weight: 600; border-bottom: 1px solid #eef1f5; padding: .9rem 1.25rem; }
+        .card { border: 0; box-shadow: 0 2px 8px rgba(15,23,42,.06); transition: box-shadow .2s, transform .2s; }
+        .card:hover { box-shadow: 0 4px 16px rgba(15,23,42,.1); }
+        .card-header { background: #fff; font-weight: 600; border-bottom: 1px solid #eef2f7; padding: .95rem 1.25rem; color: #1e293b; }
         .table { margin-bottom: 0; }
-        .table th { background: #f8fafc; color: #475569; font-weight: 600; font-size: .82rem; text-transform: uppercase; letter-spacing: .03em; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+        .table th { background: #f8fafc; color: #475569; font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
         .table td { vertical-align: middle; }
-        .btn-sm { padding: .3rem .6rem; font-size: .82rem; }
-        .badge { font-weight: 600; padding: .4em .65em; }
-        .alert { border: 0; box-shadow: 0 1px 3px rgba(15,23,42,.08); }
+        .table-striped > tbody > tr:hover { background: #f1f5f9; }
+        .btn-sm { padding: .3rem .65rem; font-size: .82rem; border-radius: .45rem; }
+        .btn { border-radius: .45rem; font-weight: 500; }
+        .badge { font-weight: 600; padding: .4em .65em; border-radius: .45rem; }
+        .alert { border: 0; box-shadow: 0 1px 3px rgba(15,23,42,.08); border-radius: .6rem; }
+        .breadcrumb-bar { background: rgba(255,255,255,.6); padding: .5rem 1.5rem; border-bottom: 1px solid #e7edf3; font-size: .83rem; }
+        .breadcrumb-bar a { color: #64748b; text-decoration: none; }
+        .breadcrumb-bar a:hover { color: #0d47a1; }
         @media (max-width: 767.98px) {
             .sidebar { display: none; }
             .content { padding: .75rem; }
@@ -113,6 +121,11 @@ $isActive  = static fn (string $prefix): string => str_starts_with($path, $prefi
             </div>
 
         
+            <div class="breadcrumb-bar">
+                <a href="<?= base_url('dashboard') ?>"><i class="bi bi-house-door"></i></a>
+                <span class="text-muted mx-1">/</span>
+                <span><?= esc($title ?? 'Dashboard') ?></span>
+            </div>
             <div class="content">
                 <?php if (session()->getFlashdata('success')): ?>
                     <div class="alert alert-success alert-dismissible fade show"><?= esc(session()->getFlashdata('success')) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
