@@ -65,6 +65,9 @@
                 <?php if ($role === 'admin'): ?>
                 <li class="nav-header">Master Data</li>
                 <li><a class="nav-link" href="<?= base_url('dokter') ?>"><i class="bi bi-person-badge"></i> Dokter</a></li>
+                <li><a class="nav-link" href="<?= base_url('master/poli') ?>"><i class="bi bi-building"></i> Poli</a></li>
+                <li><a class="nav-link" href="<?= base_url('master/kamar') ?>"><i class="bi bi-door-closed"></i> Kamar</a></li>
+                <li><a class="nav-link" href="<?= base_url('master/tindakan') ?>"><i class="bi bi-bandaid"></i> Tindakan</a></li>
                 <li><a class="nav-link" href="<?= base_url('user') ?>"><i class="bi bi-person-gear"></i> User</a></li>
                 <?php endif; ?>
             </ul>
@@ -74,7 +77,7 @@
             <div class="d-flex justify-content-between align-items-center py-3 border-bottom bg-white px-3">
                 <h4 class="mb-0"><?= esc($title ?? '') ?></h4>
                 <div>
-                    <span class="me-3"><i class="bi bi-person-circle"></i> <?= esc(session()->get('nama')) ?> <span class="badge bg-primary"><?= esc(session()->get('role')) ?></span></span>
+                    <a href="<?= base_url('profil') ?>" class="text-decoration-none me-3"><i class="bi bi-person-circle"></i> <?= esc(session()->get('nama')) ?> <span class="badge bg-primary"><?= esc(session()->get('role')) ?></span></a>
                     <a href="<?= base_url('logout') ?>" class="btn btn-sm btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
                 </div>
             </div>

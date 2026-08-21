@@ -40,6 +40,9 @@
                             <td><?= esc($r['diagnosa']) ?></td>
                             <td><?= esc($r['nama_tindakan'] ?? '-') ?></td>
                             <td>
+                                <?php if (in_array(session()->get('role'), ['admin', 'dokter', 'perawat'])): ?>
+                                <a href="<?= base_url('rekam-medis/' . $r['pendaftaran_id']) ?>" class="btn btn-sm btn-outline-info" title="Rekam medis"><i class="bi bi-file-medical"></i></a>
+                                <?php endif; ?>
                                 <?php if (in_array(session()->get('role'), ['admin', 'dokter'])): ?>
                                 <a href="<?= base_url('laboratorium/create/' . $r['id']) ?>" class="btn btn-sm btn-outline-primary" title="Order lab"><i class="bi bi-eyedropper"></i></a>
                                 <?php endif; ?>

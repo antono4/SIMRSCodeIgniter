@@ -15,3 +15,6 @@
 - Antrian: kolom `no_antrian` (KODEPOLI-### per poli per tanggal), `status_antrian` (menunggu/dipanggil/dilayani/selesai/dilewati), `waktu_panggil` di tabel pendaftaran; `generateNoAntrian()` di PendaftaranModel; manajemen di Antrian controller (panggil satu per poli, yang dilewati mundur ke belakang antrian); `/antrian/display` publik untuk TV (polling AJAX 5 dtk ke `/antrian/display-data`, TTS Web Speech API perlu 1x klik tombol); tiket cetak 80mm di `/pendaftaran/tiket/{id}`; estimasi tunggu via `rataDurasiLayanan()`/`estimasiTunggu()` (pakai raw query — selectAvg CI4 tidak menerima ekspresi ber-koma)
 - Laporan: `Laporan::index` (query mentah agregat per periode: kunjungan/poli, pendapatan/hari, pasien baru, obat keluar), role admin+kasir
 - View: layout `app/Views/layout/main.php` dengan menu berbasis `session()->get('role')`; Bootstrap 5 via CDN
+- Master generik: `Master` controller menangani CRUD poli/kamar/tindakan via `(:segment)` route + satu view `master/index.php` & `master/form.php` kondisional per jenis
+- Rekam medis: `RekamMedis::show/cetak(pendaftaranId)` menggabungkan pendaftaran + pemeriksaan + resep + lab + rawat inap dalam satu episode; resume cetak di `rekam_medis/cetak.php`
+- Profil: `Profil::gantiPassword` — verifikasi password lama, min 6, konfirmasi sama

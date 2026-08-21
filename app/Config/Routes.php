@@ -101,6 +101,23 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
 
     $routes->get('laporan', 'Laporan::index', ['filter' => 'auth:admin,kasir']);
 
+    $routes->group('master', ['filter' => 'auth:admin'], static function ($routes) {
+        $routes->get('(:segment)', 'Master::index/$1');
+        $routes->get('(:segment)/create', 'Master::create/$1');
+        $routes->post('(:segment)/store', 'Master::store/$1');
+        $routes->get('(:segment)/edit/(:num)', 'Master::edit/$1/$2');
+        $routes->post('(:segment)/update/(:num)', 'Master::update/$1/$2');
+        $routes->get('(:segment)/delete/(:num)', 'Master::delete/$1/$2');
+    });
+
+    $routes->group('rekam-medis', ['filter' => 'auth:admin,dokter,perawat'], static function ($routes) {
+        $routes->get('(:num)', 'RekamMedis::show/$1');
+        $routes->get('cetak/(:num)', 'RekamMedis::cetak/$1');
+    });
+
+    $routes->get('profil', 'Profil::index');
+    $routes->post('profil/ganti-password', 'Profil::gantiPassword');
+
     $routes->group('user', ['filter' => 'auth:admin'], static function ($routes) {
         $routes->get('/', 'User::index');
         $routes->get('create', 'User::create');

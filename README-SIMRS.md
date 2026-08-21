@@ -17,8 +17,11 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 | Obat | CRUD data obat, stok, kartu stok (mutasi masuk/keluar/opname) | admin, farmasi |
 | Resep | Buat resep dari pemeriksaan, proses resep (stok berkurang, masuk tagihan) | admin, dokter, farmasi |
 | Tagihan/Kasir | Invoice, detail biaya, pembayaran (tunai/transfer/BPJS), cetak invoice | admin, kasir |
+| Rekam Medis | Episode kunjungan lengkap (pemeriksaan, lab, resep, rawat inap) + cetak resume medis | admin, dokter, perawat |
 | Dokter | CRUD data dokter, poli, jadwal, tarif | admin |
+| Master Data | CRUD poli, kamar, tindakan | admin |
 | User | CRUD user, role, aktif/nonaktif, reset password | admin |
+| Profil | Lihat profil, ganti password sendiri | Semua |
 
 ## Setup
 
