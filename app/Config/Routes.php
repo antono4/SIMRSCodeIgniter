@@ -82,9 +82,19 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
 
     $routes->group('tagihan', ['filter' => 'auth:admin,kasir'], static function ($routes) {
         $routes->get('/', 'Tagihan::index');
+        $routes->get('cetak/(:num)', 'Tagihan::cetak/$1');
         $routes->get('(:num)', 'Tagihan::show/$1');
         $routes->post('bayar/(:num)', 'Tagihan::bayar/$1');
     });
 
     $routes->get('laporan', 'Laporan::index', ['filter' => 'auth:admin,kasir']);
+
+    $routes->group('user', ['filter' => 'auth:admin'], static function ($routes) {
+        $routes->get('/', 'User::index');
+        $routes->get('create', 'User::create');
+        $routes->post('store', 'User::store');
+        $routes->get('edit/(:num)', 'User::edit/$1');
+        $routes->post('update/(:num)', 'User::update/$1');
+        $routes->get('delete/(:num)', 'User::delete/$1');
+    });
 });

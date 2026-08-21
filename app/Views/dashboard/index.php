@@ -36,6 +36,21 @@
     </div>
 </div>
 
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">Kunjungan 7 Hari Terakhir</div>
+            <div class="card-body"><canvas id="chartKunjungan" height="180"></canvas></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">Pendapatan 7 Hari Terakhir</div>
+            <div class="card-body"><canvas id="chartPendapatan" height="180"></canvas></div>
+        </div>
+    </div>
+</div>
+
 <div class="row g-3">
     <div class="col-md-6">
         <div class="card">
@@ -89,5 +104,60 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+<?php
+// Label lengkap 7 hari (termasuk hari tanpa data)
+$labels = [];
+for ($i = 6; $i >= 0; $i--) {
+    $labels[] = date('d/m', strtotime("-{$i} days"));
+}
+$mapK = array_column($grafik_kunjungan, 'jumlah', 'tanggal');
+$mapP = array_column($grafik_pendapatan, 'jumlah', 'tanggal');
+$dataK = $dataP = [];
+for ($i = 6; $i >= 0; $i--) {
+    $tgl     = date('Y-m-d', strtotime("-{$i} days"));
+    $dataK[] = (int) ($mapK[$tgl] ?? 0);
+    $dataP[] = (float) ($mapP[$tgl] ?? 0);
+}
+?>
+const labels = <?= json_encode($labels) ?>;
+
+new Chart(document.getElementById('chartKunjungan'), {
+    type: 'bar',
+    data: {
+        labels,
+        datasets: [{
+            label: 'Kunjungan',
+            data: <?= json_encode($dataK) ?>,
+            backgroundColor: '#0d6efd',
+        }]
+    },
+    options: { scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }, plugins: { legend: { display: false } } }
+});
+
+new Chart(document.getElementById('chartPendapatan'), {
+    type: 'line',
+    data: {
+        labels,
+        datasets: [{
+            label: 'Pendapatan (Rp)',
+            data: <?= json_encode($dataP) ?>,
+            borderColor: '#198754',
+            backgroundColor: 'rgba(25,135,84,.15)',
+            fill: true,
+            tension: .3,
+        }]
+    },
+    options: {
+        scales: { y: { beginAtZero: true } },
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => 'Rp ' + ctx.parsed.y.toLocaleString('id-ID') } }
+        }
+    }
+});
+</script>
 
 <?= $this->endSection() ?>

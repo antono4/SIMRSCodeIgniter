@@ -37,6 +37,26 @@ class Tagihan extends BaseController
         ]);
     }
 
+    public function cetak(int $id)
+    {
+        $tagihan = (new TagihanModel())
+            ->select('tagihan.*, pendaftaran.no_registrasi, pendaftaran.jenis_kunjungan, pasien.no_rm, pasien.nama AS nama_pasien, pasien.alamat, pasien.penjamin, users.nama AS nama_kasir')
+            ->join('pendaftaran', 'pendaftaran.id = tagihan.pendaftaran_id')
+            ->join('pasien', 'pasien.id = pendaftaran.pasien_id')
+            ->join('users', 'users.id = tagihan.kasir_id', 'left')
+            ->find($id);
+
+        if (! $tagihan) {
+            return redirect()->to('/tagihan')->with('error', 'Tagihan tidak ditemukan.');
+        }
+
+        return view('tagihan/cetak', [
+            'title'   => 'Invoice ' . $tagihan['no_invoice'],
+            'tagihan' => $tagihan,
+            'detail'  => (new TagihanDetailModel())->where('tagihan_id', $id)->findAll(),
+        ]);
+    }
+
     public function bayar(int $id)
     {
         $tagihan = $this->model->find($id);

@@ -4,7 +4,10 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between">
         <span>Invoice <strong><?= esc($tagihan['no_invoice']) ?></strong> <?= badge_status($tagihan['status']) ?></span>
-        <a href="<?= base_url('tagihan') ?>" class="btn btn-sm btn-secondary">Kembali</a>
+        <span>
+            <a href="<?= base_url('tagihan/cetak/' . $tagihan['id']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-printer"></i> Cetak</a>
+            <a href="<?= base_url('tagihan') ?>" class="btn btn-sm btn-secondary">Kembali</a>
+        </span>
     </div>
     <div class="card-body">
         <div class="row mb-3">

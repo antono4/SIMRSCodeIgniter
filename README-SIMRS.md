@@ -6,7 +6,7 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 
 | Modul | Deskripsi | Role |
 |---|---|---|
-| Dashboard | Statistik pasien, kunjungan, kamar, stok obat, pendapatan | Semua |
+| Dashboard | Statistik pasien, kunjungan, kamar, stok obat, pendapatan + grafik kunjungan & pendapatan 7 hari (Chart.js) | Semua |
 | Pasien | CRUD data pasien, No. RM otomatis, riwayat pemeriksaan | admin, pendaftaran |
 | Pendaftaran | Registrasi kunjungan (rawat jalan / rawat inap / IGD), nomor antrian & tagihan otomatis dibuat | admin, pendaftaran |
 | Antrian | Manajemen antrian per poli (panggil, panggil berikutnya, lewati, kembalikan), estimasi waktu tunggu, tiket antrian cetak 80mm, layar display publik dengan suara panggilan (TTS) di `/antrian/display` | admin, pendaftaran, perawat, dokter |
@@ -15,8 +15,9 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 | Rawat Inap | Registrasi kamar, pulangkan pasien (biaya kamar masuk tagihan) | admin, perawat, pendaftaran |
 | Obat | CRUD data obat, stok | admin, farmasi |
 | Resep | Buat resep dari pemeriksaan, proses resep (stok berkurang, masuk tagihan) | admin, dokter, farmasi |
-| Tagihan/Kasir | Invoice, detail biaya, pembayaran (tunai/transfer/BPJS) | admin, kasir |
+| Tagihan/Kasir | Invoice, detail biaya, pembayaran (tunai/transfer/BPJS), cetak invoice | admin, kasir |
 | Dokter | CRUD data dokter, poli, jadwal, tarif | admin |
+| User | CRUD user, role, aktif/nonaktif, reset password | admin |
 
 ## Setup
 

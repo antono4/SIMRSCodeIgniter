@@ -61,6 +61,7 @@
                 <?php if ($role === 'admin'): ?>
                 <li class="nav-header">Master Data</li>
                 <li><a class="nav-link" href="<?= base_url('dokter') ?>"><i class="bi bi-person-badge"></i> Dokter</a></li>
+                <li><a class="nav-link" href="<?= base_url('user') ?>"><i class="bi bi-person-gear"></i> User</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
