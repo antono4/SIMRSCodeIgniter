@@ -14,7 +14,7 @@
     </style>
 </head>
 <body onload="window.print()">
-    <div><strong>RS SIMRS</strong></div>
+    <div><strong><?= esc(rs('nama_rs', 'RS SIMRS')) ?></strong></div>
     <div style="font-size:8pt"><?= date('d/m/Y H:i', strtotime($pendaftaran['tanggal'])) ?></div>
     <div class="garis"></div>
     <div style="font-size:9pt">NOMOR ANTRIAN</div>

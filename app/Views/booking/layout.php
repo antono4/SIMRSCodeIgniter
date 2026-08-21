@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Booking Online - RS SIMRS</title>
+    <title>Booking Online - <?= esc(rs('nama_rs', 'RS SIMRS')) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
@@ -16,7 +16,7 @@
 <body>
 <nav class="navbar navbar-booking navbar-dark mb-4">
     <div class="container">
-        <span class="navbar-brand"><i class="bi bi-hospital"></i> RS SIMRS — Booking Online</span>
+        <span class="navbar-brand"><i class="bi bi-hospital"></i> <?= esc(rs('nama_rs', 'RS SIMRS')) ?> — Booking Online</span>
         <div>
             <a href="<?= base_url('booking') ?>" class="btn btn-sm btn-outline-light">Booking</a>
             <a href="<?= base_url('booking/cek') ?>" class="btn btn-sm btn-outline-light">Cek Status</a>

@@ -19,8 +19,8 @@
 </head>
 <body>
     <div class="kop">
-        <h2>RS SIMRS</h2>
-        <div>Jl. Kesehatan No. 1, Jakarta &bull; Telp (021) 123-4567</div>
+        <h2><?= esc(rs('nama_rs', 'RS SIMRS')) ?></h2>
+        <div><?= esc(rs('alamat_rs', 'Jl. Kesehatan No. 1')) ?> &bull; Telp <?= esc(rs('telepon_rs', '(021) 123-4567')) ?></div>
         <h3 style="margin:5px 0 0">RESUME MEDIS</h3>
     </div>
 
