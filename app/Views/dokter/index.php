@@ -7,7 +7,8 @@
         <a href="<?= base_url('dokter/create') ?>" class="btn btn-sm btn-primary"><i class="bi bi-plus"></i> Tambah Dokter</a>
     </div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>Kode</th><th>Nama</th><th>Spesialisasi</th><th>Poli</th><th>Jadwal</th><th>Tarif</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($dokter)): ?>
@@ -29,7 +30,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

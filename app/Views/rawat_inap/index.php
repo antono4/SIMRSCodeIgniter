@@ -7,7 +7,8 @@
         <a href="<?= base_url('rawat-inap/create') ?>" class="btn btn-sm btn-primary"><i class="bi bi-plus"></i> Registrasi Rawat Inap</a>
     </div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>No. Reg</th><th>No. RM</th><th>Pasien</th><th>Kamar</th><th>Kelas</th><th>Masuk</th><th>Keluar</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($rawat_inap)): ?>
@@ -31,7 +32,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

@@ -4,7 +4,8 @@
 <div class="card">
     <div class="card-header">Daftar Tagihan</div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>No. Invoice</th><th>No. Reg</th><th>No. RM</th><th>Pasien</th><th>Jenis</th><th>Penjamin</th><th class="text-end">Total</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($tagihan)): ?>
@@ -24,7 +25,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

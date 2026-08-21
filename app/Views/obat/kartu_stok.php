@@ -17,7 +17,8 @@
 <div class="card">
     <div class="card-header">Riwayat Mutasi Stok</div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>Tanggal</th><th>Tipe</th><th class="text-center">Jumlah</th><th class="text-center">Stok Sebelum</th><th class="text-center">Stok Sesudah</th><th>Referensi</th><th>Keterangan</th><th>Oleh</th></tr></thead>
             <tbody>
                 <?php if (empty($mutasi)): ?>
@@ -36,7 +37,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

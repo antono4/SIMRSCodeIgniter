@@ -7,7 +7,8 @@
         <a href="<?= base_url('master/' . $jenis . '/create') ?>" class="btn btn-sm btn-primary"><i class="bi bi-plus"></i> Tambah</a>
     </div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead>
                 <?php if ($jenis === 'poli'): ?>
                 <tr><th>Kode</th><th>Nama Poli</th><th>Keterangan</th><th>Aksi</th></tr>
@@ -46,7 +47,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

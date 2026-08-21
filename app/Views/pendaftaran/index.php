@@ -7,7 +7,8 @@
         <a href="<?= base_url('pendaftaran/create') ?>" class="btn btn-sm btn-primary"><i class="bi bi-plus"></i> Pendaftaran Baru</a>
     </div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>No. Registrasi</th><th>No. Antrian</th><th>Tanggal</th><th>No. RM</th><th>Pasien</th><th>Poli</th><th>Dokter</th><th>Jenis</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($pendaftaran)): ?>
@@ -38,7 +39,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

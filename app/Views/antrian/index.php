@@ -24,7 +24,8 @@
         <span class="text-muted">Rata-rata layanan: &plusmn;<?= $rata_durasi ?> mnt/pasien</span>
     </div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>No. Antrian</th><th>No. RM</th><th>Pasien</th><th>Dokter</th><th>Jenis</th><th>Status Antrian</th><th>Estimasi Tunggu</th><th>Waktu Panggil</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($antrian)): ?>
@@ -55,7 +56,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

@@ -4,7 +4,8 @@
 <div class="card">
     <div class="card-header">Antrian Pasien</div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>No. Antrian</th><th>No. Registrasi</th><th>No. RM</th><th>Pasien</th><th>Poli</th><th>Dokter</th><th>Keluhan</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($antrian)): ?>
@@ -26,7 +27,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

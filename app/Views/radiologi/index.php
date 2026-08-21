@@ -4,7 +4,8 @@
 <div class="card">
     <div class="card-header">Daftar Order Radiologi</div>
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
             <thead><tr><th>No. Order</th><th>No. RM</th><th>Pasien</th><th>Pemeriksaan</th><th>Modalitas</th><th>Dokter</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($order)): ?>
@@ -24,7 +25,8 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 
