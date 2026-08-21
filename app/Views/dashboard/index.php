@@ -51,6 +51,28 @@
     </div>
 </div>
 
+<?php if (! empty($appointment_hari_ini)): ?>
+<div class="card mb-4 border-warning">
+    <div class="card-header bg-warning-subtle"><i class="bi bi-calendar-check"></i> Appointment Hari Ini</div>
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead><tr><th>Jam</th><th>Kode</th><th>Pasien</th><th>Dokter</th><th>Status</th></tr></thead>
+            <tbody>
+                <?php foreach ($appointment_hari_ini as $a): ?>
+                <tr>
+                    <td><strong><?= substr($a['jam'], 0, 5) ?></strong></td>
+                    <td><?= esc($a['kode']) ?></td>
+                    <td><?= esc($a['nama_pasien']) ?></td>
+                    <td><?= esc($a['nama_dokter']) ?></td>
+                    <td><?= badge_status($a['status']) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif; ?>
+
 <div class="row g-3">
     <div class="col-md-6">
         <div class="card">

@@ -42,6 +42,14 @@ class Dashboard extends BaseController
             'pendapatan_hari_ini' => (new TagihanModel())->selectSum('total')->where('status', 'lunas')->like('paid_at', $today, 'after')->first()['total'] ?? 0,
             'grafik_kunjungan'  => $kunjungan7,
             'grafik_pendapatan' => $pendapatan7,
+            'appointment_hari_ini' => (new \App\Models\AppointmentModel())
+                ->select('appointment.*, pasien.nama AS nama_pasien, dokter.nama AS nama_dokter')
+                ->join('pasien', 'pasien.id = appointment.pasien_id')
+                ->join('dokter', 'dokter.id = appointment.dokter_id')
+                ->where('appointment.tanggal', $today)
+                ->whereIn('appointment.status', ['booking', 'dikonfirmasi'])
+                ->orderBy('appointment.jam')
+                ->findAll(),
         ];
 
         return view('dashboard/index', $data);
