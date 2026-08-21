@@ -26,15 +26,17 @@
                 <div class="row g-0">
                     <div class="col-md-4 bg-panel d-flex flex-column justify-content-center align-items-center text-center p-4">
                         <div>
+                            <?php if (rs('tampilkan_logo', 'ico') === 'ico'): ?>
                             <i class="bi bi-hospital brand-icon"></i>
-                            <div class="brand-name fs-5 mt-2">SIMRS</div>
-                            <div class="brand-sub">Management System</div>
+                            <?php endif; ?>
+                            <div class="brand-name fs-5 mt-2"><?= esc(rs('nama_rs', 'SIMRS')) ?></div>
+                            <div class="brand-sub"><?= esc(rs('tagline', 'Management System')) ?></div>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body p-4">
                             <h4 class="mb-1">Masuk</h4>
-                            <p class="text-muted mb-4">Sistem Informasi Manajemen Rumah Sakit</p>
+                            <p class="text-muted mb-4"><?= esc(rs('tagline', 'Sistem Informasi Manajemen Rumah Sakit')) ?></p>
 
                             <?php if (session()->getFlashdata('error')): ?>
                                 <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>

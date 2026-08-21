@@ -144,6 +144,11 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
     $routes->get('profil', 'Profil::index');
     $routes->post('profil/ganti-password', 'Profil::gantiPassword');
 
+    $routes->group('pengaturan', ['filter' => 'auth:admin'], static function ($routes) {
+        $routes->get('/', 'Pengaturan::index');
+        $routes->post('update', 'Pengaturan::update');
+    });
+
     $routes->group('user', ['filter' => 'auth:admin'], static function ($routes) {
         $routes->get('/', 'User::index');
         $routes->get('create', 'User::create');

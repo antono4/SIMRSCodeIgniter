@@ -49,7 +49,12 @@ $isActive  = static fn (string $prefix): string => str_starts_with($path, $prefi
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 sidebar p-3 d-none d-md-block">
-            <div class="brand"><i class="bi bi-hospital"></i> SIMRS</div>
+            <div class="brand">
+                <?php if (rs('tampilkan_logo', 'ico') === 'ico'): ?>
+                <i class="bi bi-hospital"></i>
+                <?php endif; ?>
+                <?= esc(rs('nama_rs', 'SIMRS')) ?>
+            </div>
             <ul class="nav flex-column">
                 <li><a class="nav-link <?= $isActive('/dashboard') ?>" href="<?= base_url('dashboard') ?>"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
 
@@ -103,6 +108,7 @@ $isActive  = static fn (string $prefix): string => str_starts_with($path, $prefi
                 <li><a class="nav-link <?= $isActive('/master/kamar') ?>" href="<?= base_url('master/kamar') ?>"><i class="bi bi-door-closed"></i> Kamar</a></li>
                 <li><a class="nav-link <?= $isActive('/master/tindakan') ?>" href="<?= base_url('master/tindakan') ?>"><i class="bi bi-bandaid"></i> Tindakan</a></li>
                 <li><a class="nav-link <?= $isActive('/user') ?>" href="<?= base_url('user') ?>"><i class="bi bi-person-gear"></i> User</a></li>
+                <li><a class="nav-link <?= $isActive('/pengaturan') ?>" href="<?= base_url('pengaturan') ?>"><i class="bi bi-gear"></i> Pengaturan RS</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

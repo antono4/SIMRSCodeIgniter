@@ -7,6 +7,18 @@ if (! function_exists('rupiah')) {
     }
 }
 
+if (! function_exists('rs')) {
+    function rs(string $key, ?string $default = null): ?string
+    {
+        static $cache = [];
+        if (! isset($cache[$key])) {
+            $cache[$key] = \App\Models\PengaturanModel::getValue($key, $default);
+        }
+
+        return $cache[$key];
+    }
+}
+
 if (! function_exists('badge_status')) {
     function badge_status(string $status): string
     {

@@ -333,7 +333,7 @@ CREATE TABLE `migrations` (
   `time` int(11) NOT NULL,
   `batch` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -356,7 +356,8 @@ INSERT INTO `migrations` VALUES
 (10,'2026-08-21-000010','App\\Database\\Migrations\\CreateObatMutasiTable','default','App',1787278458,3),
 (11,'2026-08-21-000011','App\\Database\\Migrations\\CreateRadiologiTables','default','App',1787279663,4),
 (12,'2026-08-21-000012','App\\Database\\Migrations\\CreateIcd10Table','default','App',1787279663,4),
-(13,'2026-08-21-000013','App\\Database\\Migrations\\CreateAppointmentTable','default','App',1787280018,5);
+(13,'2026-08-21-000013','App\\Database\\Migrations\\CreateAppointmentTable','default','App',1787280018,5),
+(14,'2026-08-21-000014','App\\Database\\Migrations\\CreatePengaturanTable','default','App',1787292125,6);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -590,6 +591,43 @@ INSERT INTO `pendaftaran` VALUES
 (6,'REG20260821006','UMU-004',1,1,1,'2026-08-21','rawat_jalan','Kontrol hipertensi','menunggu','menunggu',NULL,'2026-08-21 02:40:27','2026-08-21 02:40:27'),
 (7,'REG20260821007','UMU-005',1,1,1,'2026-08-21','rawat_jalan','Tes alur lengkap','selesai','selesai',NULL,'2026-08-21 03:25:09','2026-08-21 03:25:09');
 /*!40000 ALTER TABLE `pendaftaran` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
+
+--
+-- Table structure for table `pengaturan`
+--
+
+DROP TABLE IF EXISTS `pengaturan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pengaturan` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(50) NOT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `key` (`key`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pengaturan`
+--
+
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
+LOCK TABLES `pengaturan` WRITE;
+/*!40000 ALTER TABLE `pengaturan` DISABLE KEYS */;
+INSERT INTO `pengaturan` VALUES
+(1,'nama_rs','RS Sehat Sentosa','2026-08-21 06:10:22'),
+(2,'alamat_rs','Jl. Merdeka No. 123','2026-08-21 06:10:22'),
+(3,'telepon_rs','(021) 999-888','2026-08-21 06:10:22'),
+(4,'logo_rs','hospital',NULL),
+(5,'tagline','Melayani dengan Hati','2026-08-21 06:10:22'),
+(6,'tampilkan_logo','ico','2026-08-21 06:10:22'),
+(7,'updated_at','2026-08-21 06:02:05',NULL);
+/*!40000 ALTER TABLE `pengaturan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
@@ -1016,4 +1054,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-08-21  3:28:00
+-- Dump completed on 2026-08-21  6:12:31
