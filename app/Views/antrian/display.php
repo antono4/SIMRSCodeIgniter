@@ -44,16 +44,36 @@ setInterval(() => {
 let suaraAktif = false;
 const sudahDiucapkan = new Set();
 let pertamaKali = true;
+let voiceIndonesia = null;
+
+function pilihVoice() {
+    const voices = speechSynthesis.getVoices();
+    voiceIndonesia = voices.find(v => v.lang.startsWith('id'))
+        || voices.find(v => v.name.toLowerCase().includes('indonesia'))
+        || null;
+}
+pilihVoice();
+speechSynthesis.onvoiceschanged = pilihVoice;
 
 function ucapkanTeks(teks) {
     const u = new SpeechSynthesisUtterance(teks);
     u.lang = 'id-ID';
     u.rate = 0.9;
+    u.pitch = 1;
+    if (voiceIndonesia) u.voice = voiceIndonesia;
     speechSynthesis.speak(u);
 }
 
+// Eja nomor antrian per-huruf/angka: huruf dibaca sebagai huruf (A, B, ...),
+// angka dibaca satu-satu (0 = "nol", 1 = "satu", dst) agar terdengar jelas.
+const NAMA_ANGKA = ['nol','satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan'];
+
 function ejaNomor(no) {
-    return no.replace('-', ' ').split('').join(' ');
+    return no.split('').map(c => {
+        if (c === '-') return '';
+        if (/\d/.test(c)) return NAMA_ANGKA[parseInt(c)];
+        return c.toUpperCase(); // huruf alfabet
+    }).filter(Boolean).join(' ');
 }
 
 function render(data) {
