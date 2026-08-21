@@ -124,8 +124,9 @@ class Resep extends BaseController
         $db = \Config\Database::connect();
         $db->transStart();
 
+        $mutasiModel = new \App\Models\ObatMutasiModel();
         foreach ($details as $d) {
-            $obatModel->kurangiStok($d['obat_id'], $d['jumlah']);
+            $mutasiModel->catat($d['obat_id'], 'keluar', $d['jumlah'], $resep['no_resep'], 'Resep ' . $resep['no_resep']);
         }
         $this->model->update($id, ['status' => 'selesai']);
 

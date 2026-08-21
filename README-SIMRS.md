@@ -13,7 +13,8 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 | Laporan | Kunjungan per poli, pendapatan per hari, pasien baru, obat keluar per periode tanggal (dapat dicetak) | admin, kasir |
 | Pemeriksaan | Antrian, anamnesis, vital sign, diagnosa, tindakan (masuk tagihan) | admin, dokter, perawat |
 | Rawat Inap | Registrasi kamar, pulangkan pasien (biaya kamar masuk tagihan) | admin, perawat, pendaftaran |
-| Obat | CRUD data obat, stok | admin, farmasi |
+| Laboratorium | Order lab dari hasil pemeriksaan (biaya masuk tagihan), input hasil, cetak hasil | admin, dokter, laboratorium |
+| Obat | CRUD data obat, stok, kartu stok (mutasi masuk/keluar/opname) | admin, farmasi |
 | Resep | Buat resep dari pemeriksaan, proses resep (stok berkurang, masuk tagihan) | admin, dokter, farmasi |
 | Tagihan/Kasir | Invoice, detail biaya, pembayaran (tunai/transfer/BPJS), cetak invoice | admin, kasir |
 | Dokter | CRUD data dokter, poli, jadwal, tarif | admin |
@@ -40,6 +41,7 @@ php spark serve --port 8080
 | perawat | perawat |
 | farmasi | farmasi |
 | kasir | kasir |
+| lab | laboratorium |
 
 ## Alur Transaksi
 

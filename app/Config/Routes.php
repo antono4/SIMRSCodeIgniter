@@ -70,6 +70,18 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
         $routes->get('edit/(:num)', 'Obat::edit/$1');
         $routes->post('update/(:num)', 'Obat::update/$1');
         $routes->get('delete/(:num)', 'Obat::delete/$1');
+        $routes->get('kartu-stok/(:num)', 'Obat::kartuStok/$1');
+        $routes->get('restock/(:num)', 'Obat::restock/$1');
+        $routes->post('restock/(:num)', 'Obat::prosesRestock/$1');
+        $routes->post('opname/(:num)', 'Obat::prosesOpname/$1');
+    });
+
+    $routes->group('laboratorium', ['filter' => 'auth:admin,dokter,laboratorium'], static function ($routes) {
+        $routes->get('/', 'Laboratorium::index');
+        $routes->get('create/(:num)', 'Laboratorium::create/$1', ['filter' => 'auth:admin,dokter']);
+        $routes->post('store', 'Laboratorium::store', ['filter' => 'auth:admin,dokter']);
+        $routes->get('(:num)', 'Laboratorium::show/$1');
+        $routes->post('input-hasil/(:num)', 'Laboratorium::inputHasil/$1', ['filter' => 'auth:admin,laboratorium']);
     });
 
     $routes->group('resep', ['filter' => 'auth:admin,dokter,farmasi'], static function ($routes) {

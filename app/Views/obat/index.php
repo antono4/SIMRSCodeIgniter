@@ -23,6 +23,7 @@
                     <td><span class="badge bg-<?= $o['stok'] <= 100 ? 'danger' : 'success' ?>"><?= $o['stok'] ?></span></td>
                     <td><?= esc($o['expired'] ?? '-') ?></td>
                     <td>
+                        <a href="<?= base_url('obat/kartu-stok/' . $o['id']) ?>" class="btn btn-sm btn-info" title="Kartu stok"><i class="bi bi-card-list"></i></a>
                         <a href="<?= base_url('obat/edit/' . $o['id']) ?>" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
                         <a href="<?= base_url('obat/delete/' . $o['id']) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus obat ini?')"><i class="bi bi-trash"></i></a>
                     </td>

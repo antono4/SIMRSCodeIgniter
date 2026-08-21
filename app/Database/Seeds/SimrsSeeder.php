@@ -16,11 +16,12 @@ class SimrsSeeder extends Seeder
             ['username' => 'perawat',     'nama' => 'Perawat Ruangan',     'role' => 'perawat',     'email' => null],
             ['username' => 'farmasi',     'nama' => 'Apoteker Farmasi',    'role' => 'farmasi',     'email' => null],
             ['username' => 'kasir',       'nama' => 'Petugas Kasir',       'role' => 'kasir',       'email' => null],
+            ['username' => 'lab',         'nama' => 'Analis Laboratorium', 'role' => 'laboratorium', 'email' => null],
         ];
         foreach ($users as $u) {
             $u['password']   = password_hash('password', PASSWORD_DEFAULT);
             $u['created_at'] = date('Y-m-d H:i:s');
-            $this->db->table('users')->insert($u);
+            $this->db->table('users')->ignore(true)->insert($u);
         }
 
         $poli = [

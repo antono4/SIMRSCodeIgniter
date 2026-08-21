@@ -26,10 +26,10 @@
             <div class="card-header">Riwayat Pemeriksaan</div>
             <div class="card-body p-0">
                 <table class="table table-striped mb-0">
-                    <thead><tr><th>Tanggal</th><th>No. Reg</th><th>Poli</th><th>Dokter</th><th>Diagnosa</th><th>Tindakan</th></tr></thead>
+                    <thead><tr><th>Tanggal</th><th>No. Reg</th><th>Poli</th><th>Dokter</th><th>Diagnosa</th><th>Tindakan</th><th>Aksi</th></tr></thead>
                     <tbody>
                         <?php if (empty($riwayat)): ?>
-                        <tr><td colspan="6" class="text-center text-muted">Belum ada riwayat pemeriksaan</td></tr>
+                        <tr><td colspan="7" class="text-center text-muted">Belum ada riwayat pemeriksaan</td></tr>
                         <?php endif; ?>
                         <?php foreach ($riwayat as $r): ?>
                         <tr>
@@ -39,6 +39,14 @@
                             <td><?= esc($r['nama_dokter']) ?></td>
                             <td><?= esc($r['diagnosa']) ?></td>
                             <td><?= esc($r['nama_tindakan'] ?? '-') ?></td>
+                            <td>
+                                <?php if (in_array(session()->get('role'), ['admin', 'dokter'])): ?>
+                                <a href="<?= base_url('laboratorium/create/' . $r['id']) ?>" class="btn btn-sm btn-outline-primary" title="Order lab"><i class="bi bi-eyedropper"></i></a>
+                                <?php endif; ?>
+                                <?php if (in_array(session()->get('role'), ['admin', 'dokter', 'farmasi'])): ?>
+                                <a href="<?= base_url('resep/create/' . $r['id']) ?>" class="btn btn-sm btn-outline-success" title="Buat resep"><i class="bi bi-prescription2"></i></a>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
