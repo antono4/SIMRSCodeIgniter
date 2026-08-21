@@ -77,22 +77,12 @@ class Laboratorium extends BaseController
         }
 
         // Biaya lab langsung masuk tagihan
-        $pemeriksaan  = (new PemeriksaanModel())->find($pemeriksaanId);
-        $tagihanModel = new TagihanModel();
-        $tagihan      = $tagihanModel->where('pendaftaran_id', $pemeriksaan['pendaftaran_id'])->first();
-        if ($tagihan && $total > 0) {
-            $detailModel = new TagihanDetailModel();
-            foreach ($jenisIds as $jenisId) {
-                $jenis = $jenisModel->find((int) $jenisId);
-                $detailModel->insert([
-                    'tagihan_id' => $tagihan['id'],
-                    'deskripsi'  => 'Lab: ' . $jenis['nama'],
-                    'qty'        => 1,
-                    'harga'      => $jenis['tarif'],
-                    'subtotal'   => $jenis['tarif'],
-                ]);
+        $pemeriksaan = (new PemeriksaanModel())->find($pemeriksaanId);
+        foreach ($jenisIds as $jenisId) {
+            $jenis = $jenisModel->find((int) $jenisId);
+            if ($jenis && $total > 0) {
+                \App\Libraries\Billing::tambahItem((int) $pemeriksaan['pendaftaran_id'], 'Lab: ' . $jenis['nama'], (float) $jenis['tarif']);
             }
-            $tagihanModel->update($tagihan['id'], ['total' => $tagihan['total'] + $total]);
         }
 
         $db->transComplete();

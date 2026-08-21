@@ -68,18 +68,7 @@ class Pemeriksaan extends BaseController
         if (! empty($data['tindakan_id'])) {
             $tindakan = (new TindakanModel())->find((int) $data['tindakan_id']);
             if ($tindakan) {
-                $tagihanModel = new TagihanModel();
-                $tagihan      = $tagihanModel->where('pendaftaran_id', $pendaftaranId)->first();
-                if ($tagihan) {
-                    (new TagihanDetailModel())->insert([
-                        'tagihan_id' => $tagihan['id'],
-                        'deskripsi'  => 'Tindakan: ' . $tindakan['nama'],
-                        'qty'        => 1,
-                        'harga'      => $tindakan['tarif'],
-                        'subtotal'   => $tindakan['tarif'],
-                    ]);
-                    $tagihanModel->update($tagihan['id'], ['total' => $tagihan['total'] + $tindakan['tarif']]);
-                }
+                \App\Libraries\Billing::tambahItem($pendaftaranId, 'Tindakan: ' . $tindakan['nama'], (float) $tindakan['tarif']);
             }
         }
 

@@ -75,20 +75,13 @@ class RawatInap extends BaseController
         // Tambahkan biaya kamar ke tagihan
         $kamar = (new KamarModel())->find($ri['kamar_id']);
         $lama  = $this->model->lamaInap(array_merge($ri, ['tanggal_keluar' => $tanggalKeluar]));
-        $biaya = $lama * (float) $kamar['tarif_per_hari'];
 
-        $tagihanModel = new TagihanModel();
-        $tagihan      = $tagihanModel->where('pendaftaran_id', $ri['pendaftaran_id'])->first();
-        if ($tagihan) {
-            (new TagihanDetailModel())->insert([
-                'tagihan_id' => $tagihan['id'],
-                'deskripsi'  => "Kamar {$kamar['nama']} ({$lama} hari)",
-                'qty'        => $lama,
-                'harga'      => $kamar['tarif_per_hari'],
-                'subtotal'   => $biaya,
-            ]);
-            $tagihanModel->update($tagihan['id'], ['total' => $tagihan['total'] + $biaya]);
-        }
+        \App\Libraries\Billing::tambahItem(
+            (int) $ri['pendaftaran_id'],
+            "Kamar {$kamar['nama']} ({$lama} hari)",
+            (float) $kamar['tarif_per_hari'],
+            $lama
+        );
 
         $db->transComplete();
 

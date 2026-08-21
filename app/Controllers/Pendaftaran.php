@@ -79,23 +79,10 @@ class Pendaftaran extends BaseController
     private function buatTagihanAwal(int $pendaftaranId, int $dokterId): void
     {
         $dokter = (new DokterModel())->find($dokterId);
-        $tarif  = (float) ($dokter['tarif_konsultasi'] ?? 0);
-
-        $tagihanModel = new TagihanModel();
-        $tagihanModel->save([
-            'no_invoice'     => $tagihanModel->generateNoInvoice(),
-            'pendaftaran_id' => $pendaftaranId,
-            'tanggal'        => date('Y-m-d H:i:s'),
-            'total'          => $tarif,
-            'status'         => 'belum_bayar',
-        ]);
-
-        (new TagihanDetailModel())->insert([
-            'tagihan_id' => $tagihanModel->getInsertID(),
-            'deskripsi'  => 'Konsultasi ' . ($dokter['nama'] ?? 'Dokter'),
-            'qty'        => 1,
-            'harga'      => $tarif,
-            'subtotal'   => $tarif,
-        ]);
+        \App\Libraries\Billing::tambahItem(
+            $pendaftaranId,
+            'Konsultasi ' . ($dokter['nama'] ?? 'Dokter'),
+            (float) ($dokter['tarif_konsultasi'] ?? 0)
+        );
     }
 }

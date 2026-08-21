@@ -69,19 +69,8 @@ class Radiologi extends BaseController
         $orderId = $this->model->getInsertID();
 
         // Biaya radiologi langsung masuk tagihan
-        $pemeriksaan  = (new PemeriksaanModel())->find($pemeriksaanId);
-        $tagihanModel = new TagihanModel();
-        $tagihan      = $tagihanModel->where('pendaftaran_id', $pemeriksaan['pendaftaran_id'])->first();
-        if ($tagihan) {
-            (new TagihanDetailModel())->insert([
-                'tagihan_id' => $tagihan['id'],
-                'deskripsi'  => 'Radiologi: ' . $jenis['nama'],
-                'qty'        => 1,
-                'harga'      => $jenis['tarif'],
-                'subtotal'   => $jenis['tarif'],
-            ]);
-            $tagihanModel->update($tagihan['id'], ['total' => $tagihan['total'] + $jenis['tarif']]);
-        }
+        $pemeriksaan = (new PemeriksaanModel())->find($pemeriksaanId);
+        \App\Libraries\Billing::tambahItem((int) $pemeriksaan['pendaftaran_id'], 'Radiologi: ' . $jenis['nama'], (float) $jenis['tarif']);
 
         $db->transComplete();
 

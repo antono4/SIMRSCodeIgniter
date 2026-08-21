@@ -18,8 +18,12 @@ class Auth extends BaseController
     public function attempt()
     {
         $model    = new UserModel();
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
+        $username = (string) ($this->request->getPost('username') ?? '');
+        $password = (string) ($this->request->getPost('password') ?? '');
+
+        if ($username === '' || $password === '') {
+            return redirect()->back()->withInput()->with('error', 'Username dan password wajib diisi.');
+        }
 
         $user = $model->findByUsername($username);
 

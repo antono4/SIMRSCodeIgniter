@@ -131,23 +131,14 @@ class Resep extends BaseController
         $this->model->update($id, ['status' => 'selesai']);
 
         // Tambahkan ke tagihan
-        $pemeriksaan  = (new PemeriksaanModel())->find($resep['pemeriksaan_id']);
-        $tagihanModel = new TagihanModel();
-        $tagihan      = $tagihanModel->where('pendaftaran_id', $pemeriksaan['pendaftaran_id'])->first();
-        if ($tagihan) {
-            $tambahan = 0;
-            foreach ($details as $d) {
-                $subtotal = $d['harga_jual'] * $d['jumlah'];
-                (new TagihanDetailModel())->insert([
-                    'tagihan_id' => $tagihan['id'],
-                    'deskripsi'  => 'Obat: ' . $d['nama_obat'] . ' x' . $d['jumlah'],
-                    'qty'        => $d['jumlah'],
-                    'harga'      => $d['harga_jual'],
-                    'subtotal'   => $subtotal,
-                ]);
-                $tambahan += $subtotal;
-            }
-            $tagihanModel->update($tagihan['id'], ['total' => $tagihan['total'] + $tambahan]);
+        $pemeriksaan = (new PemeriksaanModel())->find($resep['pemeriksaan_id']);
+        foreach ($details as $d) {
+            \App\Libraries\Billing::tambahItem(
+                (int) $pemeriksaan['pendaftaran_id'],
+                'Obat: ' . $d['nama_obat'] . ' x' . $d['jumlah'],
+                (float) $d['harga_jual'],
+                (int) $d['jumlah']
+            );
         }
 
         $db->transComplete();

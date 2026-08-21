@@ -23,3 +23,5 @@
 - Profil: `Profil::gantiPassword` — verifikasi password lama, min 6, konfirmasi sama
 - Appointment: tabel `appointment` (kode APTyymm####); `Appointment::daftarkan()` mengonversi booking → pendaftaran + antrian + invoice (logika billing duplikat dari `Pendaftaran::buatTagihanAwal` — kandidat refaktor bila menyentuh keduanya); cek bentrok jam di `store()`
 - Booking publik: controller `Booking` tanpa auth (`/booking`, `/booking/store`, `/booking/sukses/{kode}`, `/booking/cek`); pasien lama dikenali via `no_rm`, pasien baru auto-dibuat dengan `generateNoRm()`; layout khusus `Views/booking/layout.php`; cek status butuh kode + no_rm (proteksi sederhana)
+- Billing: `App\Libraries\Billing::tambahItem(pendaftaranId, deskripsi, harga, qty=1)` pusat logika tagihan — dipakai di Pendaftaran, Pemeriksaan, RawatInap, Laboratorium, Radiologi, Resep
+- Landing publik: controller `Landing` menangani root `/` dengan daftar poli/dokter/tarif; `Auth::login` tetap di `/login`

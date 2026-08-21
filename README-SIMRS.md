@@ -10,6 +10,7 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 | Pasien | CRUD data pasien, No. RM otomatis, riwayat pemeriksaan | admin, pendaftaran |
 | Pendaftaran | Registrasi kunjungan (rawat jalan / rawat inap / IGD), nomor antrian & tagihan otomatis dibuat | admin, pendaftaran |
 | Appointment | Booking jadwal dokter (cek bentrok jam), konfirmasi/batal, konversi ke pendaftaran kunjungan | admin, pendaftaran |
+| Landing | Halaman depan publik `/` dengan daftar poli/dokter/tarif | Publik |
 | Booking Online | Halaman publik `/booking` (tanpa login): booking pasien baru/lama dengan No. RM, halaman sukses dengan kode booking, cek status dengan kode + No. RM | Publik |
 | Antrian | Manajemen antrian per poli (panggil, panggil berikutnya, lewati, kembalikan), estimasi waktu tunggu, tiket antrian cetak 80mm, layar display publik dengan suara panggilan (TTS) di `/antrian/display` | admin, pendaftaran, perawat, dokter |
 | Laporan | Kunjungan per poli, pendapatan per hari, pasien baru, obat keluar per periode tanggal (cetak + export CSV) | admin, kasir |
