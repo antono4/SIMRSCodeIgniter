@@ -3,7 +3,7 @@
 ## Project: SIMRS (CodeIgniter 4 + MySQL)
 
 - Framework: CodeIgniter 4.7, PHP 8.4, MariaDB (database: `simrs`, user: `simrs` / `simrs123`)
-- Run dev server: `php spark serve --port 12000` (baseURL di `.env` harus cocok dengan port)
+- Run dev server: `php spark serve --port 8080` (baseURL di `.env` = http://localhost:8080/, harus selalu cocok dengan port yang dipakai)
 - Migrate: `php spark migrate` — Seed: `php spark db:seed SimrsSeeder`
 - Auth: custom session-based (tabel `users`), filter `auth` di `app/Filters/AuthFilter.php`, dipakai per-route group di `app/Config/Routes.php` dengan argumen role (`auth:admin,kasir`)
 - Role: admin, pendaftaran, dokter, perawat, farmasi, kasir, laboratorium — password default seed: `password`
