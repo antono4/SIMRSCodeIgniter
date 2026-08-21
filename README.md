@@ -1,69 +1,84 @@
-# CodeIgniter 4 Application Starter
+# SIMRS — Sistem Informasi Manajemen Rumah Sakit
 
-## What is CodeIgniter?
+Aplikasi SIMRS lengkap berbasis **CodeIgniter 4 (PHP 8+)** dengan database **MySQL/MariaDB**, Bootstrap 5, dan Chart.js. Mencakup alur end-to-end: booking publik → pendaftaran antrian → pemeriksaan → lab/radiologi/resep → rawat inap → kasir → laporan.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Fitur Utama
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- **Halaman publik** (tanpa login): landing (`/`) dengan daftar poli & dokter, booking online (`/booking`), cek status booking (`/booking/cek`), dan display TV antrian publik (`/antrian/display`) dengan suara panggilan TTS Bahasa Indonesia
+- **Pendaftaran & Antrian**: No. RM & registrasi otomatis, nomor antrian per poli per hari (UMU-001...), panggil/lewati/kembalikan, estimasi waktu tunggu, tiket cetak 80mm
+- **Pelayanan medis**: form pemeriksaan dengan tanda vital, autocomplete **ICD-10**, order **Laboratorium** & **Radiologi** dari riwayat, resep dengan pengurangan stok otomatis
+- **Farmasi**: data obat, **kartu stok** (mutasi masuk/keluar/opname lengkap dengan referensi dan user)
+- **Rawat Inap**: registrasi kamar, okupansi otomatis, pulangkan pasien (biaya kamar masuk tagihan)
+- **Keuangan**: invoice terperinci, pembayaran tunai/transfer/BPJS, cetak invoice dengan stempel LUNAS
+- **Rekam Medis**: satu episode lengkap (pemeriksaan + ICD-10 + lab + radiologi + resep + rawat inap), cetak resume medis
+- **Laporan**: kunjungan per poli, pendapatan per hari, pasien baru, obat keluar, **export CSV** (kujungan/pendapatan/mutasi obat)
+- **Keamanan**: RBAC 8 role dengan filter route, CSRF proteksi, session-file, ganti password halaman profil
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Modul & Role
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+| Modul | Role |
+|---|---|
+| Dashboard (statistik + grafik 7 hari) | Semua |
+| Pasien, Pendaftaran, Appointment, Antrian | admin, pendaftaran |
+| Pemeriksaan, Rekam Medis | admin, dokter, perawat |
+| Laboratorium | admin, dokter, laboratorium |
+| Radiologi | admin, dokter, radiologi |
+| Rawat Inap | admin, perawat, pendaftaran |
+| Obat, Resep, Kartu Stok | admin, farmasi |
+| Tagihan/Kasir, Laporan | admin, kasir |
+| Dokter, Master (poli/kamar/tindakan), User | admin |
+| Profil | Semua |
 
-## Installation & updates
+## Role & Akun Default (password: `password`)
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+| Username | Role |
+|---|---|
+| admin | admin |
+| pendaftaran | pendaftaran |
+| dokter | dokter |
+| perawat | perawat |
+| farmasi | farmasi |
+| kasir | kasir |
+| lab | laboratorium |
+| radiologi | radiologi |
 
 ## Setup
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### Cara 1 — Import dump (paling cepat, sudah termasuk data awal)
 
-## Important Change with index.php
+```bash
+composer install
+cp env .env          # sesuaikan database.default.*
+mysql -u root -p < database/simrs.sql
+php spark serve --port 8080
+```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+### Cara 2 — Migration + seeder dari awal
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+```bash
+composer install
+cp env .env
+php spark migrate
+php spark db:seed SimrsSeeder
+php spark serve --port 8080
+```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+Buka **http://localhost:8080** (landing publik). Login staff di `/login`.
 
-## Repository Management
+## Teknologi
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+- PHP 8.4, CodeIgniter 4.7, MariaDB/MySQL
+- Bootstrap 5, Bootstrap Icons, Chart.js (via CDN — tanpa build step)
+- Web Speech API untuk suara panggilan antrian (id-ID)
+- MySQL dump di `database/simrs.sql` (skema + data awal lengkap)
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Struktur
 
-## Server Requirements
+- `app/Controllers` — 24 controller; `App\Libraries\Billing` pusat tagihan
+- `app/Models` — model per tabel dengan helper penomoran (REG/RM/RSP/INV/LAB/RAD/APT)
+- `app/Database/Migrations` — 13 migration; `Seeds` dengan seeder per modul
+- `app/Views` — layout internal + landing/booking/display publik; AdminLTE-like flat UI
+- `app/Filters/AuthFilter` — RBAC per route (`auth` & `auth:role1,role2`)
 
-PHP version 8.2 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+---
+Catatan: ganti password default `password` via halaman Profil. Untuk produksi, ubah juga database creds di `.env` — tanpa push ke repo publik.
