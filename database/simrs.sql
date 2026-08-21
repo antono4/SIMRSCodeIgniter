@@ -394,7 +394,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `obat` WRITE;
 /*!40000 ALTER TABLE `obat` DISABLE KEYS */;
 INSERT INTO `obat` VALUES
-(1,'OBT001','Paracetamol 500mg','Analgesik','tablet',500.00,1000.00,490,NULL,NULL,'2026-08-21 01:47:44'),
+(1,'OBT001','Paracetamol 500mg','Analgesik','tablet',500.00,1000.00,488,NULL,NULL,'2026-08-21 03:25:25'),
 (2,'OBT002','Amoxicillin 500mg','Antibiotik','kapsul',1500.00,3000.00,300,NULL,NULL,NULL),
 (3,'OBT003','OBH Combi','Batuk','botol',12000.00,20000.00,143,NULL,NULL,'2026-08-21 02:17:50'),
 (4,'OBT004','Antasida Doen','Lambung','tablet',800.00,1500.00,200,NULL,NULL,NULL),
@@ -429,7 +429,7 @@ CREATE TABLE `obat_mutasi` (
   KEY `obat_id_tanggal` (`obat_id`,`tanggal`),
   CONSTRAINT `obat_mutasi_obat_id_foreign` FOREIGN KEY (`obat_id`) REFERENCES `obat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `obat_mutasi_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -442,7 +442,8 @@ LOCK TABLES `obat_mutasi` WRITE;
 INSERT INTO `obat_mutasi` VALUES
 (1,3,'2026-08-21 02:17:43','masuk',50,99,149,NULL,'Faktur PB-001 PBF Kimia',1,'2026-08-21 02:17:43'),
 (2,3,'2026-08-21 02:17:43','opname',145,149,145,NULL,'Selisih 4 rusak',1,'2026-08-21 02:17:43'),
-(3,3,'2026-08-21 02:17:50','keluar',2,145,143,'RSP20260821002','Resep RSP20260821002',1,'2026-08-21 02:17:50');
+(3,3,'2026-08-21 02:17:50','keluar',2,145,143,'RSP20260821002','Resep RSP20260821002',1,'2026-08-21 02:17:50'),
+(4,1,'2026-08-21 03:25:25','keluar',2,490,488,'RSP20260821003','Resep RSP20260821003',1,'2026-08-21 03:25:25');
 /*!40000 ALTER TABLE `obat_mutasi` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -520,7 +521,7 @@ CREATE TABLE `pemeriksaan` (
   KEY `pemeriksaan_tindakan_id_foreign` (`tindakan_id`),
   CONSTRAINT `pemeriksaan_pendaftaran_id_foreign` FOREIGN KEY (`pendaftaran_id`) REFERENCES `pendaftaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pemeriksaan_tindakan_id_foreign` FOREIGN KEY (`tindakan_id`) REFERENCES `tindakan` (`id`) ON DELETE CASCADE ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -532,7 +533,8 @@ LOCK TABLES `pemeriksaan` WRITE;
 /*!40000 ALTER TABLE `pemeriksaan` DISABLE KEYS */;
 INSERT INTO `pemeriksaan` VALUES
 (1,1,'2026-08-21 01:47:39','Demam 3 hari','120/80',38.2,65.0,170.0,'ISPA',NULL,2,'Istirahat cukup','2026-08-21 01:47:39','2026-08-21 01:47:39'),
-(2,4,'2026-08-21 02:03:47',NULL,NULL,NULL,NULL,NULL,'Sehat, kontrol normal',NULL,NULL,NULL,'2026-08-21 02:03:47','2026-08-21 02:03:47');
+(2,4,'2026-08-21 02:03:47',NULL,NULL,NULL,NULL,NULL,'Sehat, kontrol normal',NULL,NULL,NULL,'2026-08-21 02:03:47','2026-08-21 02:03:47'),
+(3,7,'2026-08-21 03:25:09',NULL,NULL,NULL,NULL,NULL,'Tes',6,1,NULL,'2026-08-21 03:25:09','2026-08-21 03:25:09');
 /*!40000 ALTER TABLE `pemeriksaan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -569,7 +571,7 @@ CREATE TABLE `pendaftaran` (
   CONSTRAINT `pendaftaran_dokter_id_foreign` FOREIGN KEY (`dokter_id`) REFERENCES `dokter` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
   CONSTRAINT `pendaftaran_pasien_id_foreign` FOREIGN KEY (`pasien_id`) REFERENCES `pasien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pendaftaran_poli_id_foreign` FOREIGN KEY (`poli_id`) REFERENCES `poli` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -585,7 +587,8 @@ INSERT INTO `pendaftaran` VALUES
 (3,'REG20260821003','UMU-002',1,1,1,'2026-08-21','rawat_jalan','Kontrol rutin','menunggu','menunggu',NULL,'2026-08-21 02:03:15','2026-08-21 02:03:40'),
 (4,'REG20260821004','UMU-003',3,1,1,'2026-08-21','rawat_jalan','Kontrol rutin','selesai','selesai','2026-08-21 02:03:40','2026-08-21 02:03:15','2026-08-21 02:03:47'),
 (5,'REG20260821005','GIG-001',2,3,3,'2026-08-21','rawat_jalan','Sakit gigi','menunggu','menunggu',NULL,'2026-08-21 02:09:33','2026-08-21 02:09:33'),
-(6,'REG20260821006','UMU-004',1,1,1,'2026-08-21','rawat_jalan','Kontrol hipertensi','menunggu','menunggu',NULL,'2026-08-21 02:40:27','2026-08-21 02:40:27');
+(6,'REG20260821006','UMU-004',1,1,1,'2026-08-21','rawat_jalan','Kontrol hipertensi','menunggu','menunggu',NULL,'2026-08-21 02:40:27','2026-08-21 02:40:27'),
+(7,'REG20260821007','UMU-005',1,1,1,'2026-08-21','rawat_jalan','Tes alur lengkap','selesai','selesai',NULL,'2026-08-21 03:25:09','2026-08-21 03:25:09');
 /*!40000 ALTER TABLE `pendaftaran` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -768,7 +771,7 @@ CREATE TABLE `resep` (
   UNIQUE KEY `no_resep` (`no_resep`),
   KEY `resep_pemeriksaan_id_foreign` (`pemeriksaan_id`),
   CONSTRAINT `resep_pemeriksaan_id_foreign` FOREIGN KEY (`pemeriksaan_id`) REFERENCES `pemeriksaan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -780,7 +783,8 @@ LOCK TABLES `resep` WRITE;
 /*!40000 ALTER TABLE `resep` DISABLE KEYS */;
 INSERT INTO `resep` VALUES
 (1,'RSP20260821001',1,'2026-08-21 01:47:44','selesai','Habiskan','2026-08-21 01:47:44','2026-08-21 01:47:44'),
-(2,'RSP20260821002',2,'2026-08-21 02:17:50','selesai',NULL,'2026-08-21 02:17:50','2026-08-21 02:17:50');
+(2,'RSP20260821002',2,'2026-08-21 02:17:50','selesai',NULL,'2026-08-21 02:17:50','2026-08-21 02:17:50'),
+(3,'RSP20260821003',3,'2026-08-21 03:25:09','selesai',NULL,'2026-08-21 03:25:09','2026-08-21 03:25:25');
 /*!40000 ALTER TABLE `resep` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -804,7 +808,7 @@ CREATE TABLE `resep_detail` (
   KEY `resep_detail_obat_id_foreign` (`obat_id`),
   CONSTRAINT `resep_detail_obat_id_foreign` FOREIGN KEY (`obat_id`) REFERENCES `obat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `resep_detail_resep_id_foreign` FOREIGN KEY (`resep_id`) REFERENCES `resep` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -817,7 +821,8 @@ LOCK TABLES `resep_detail` WRITE;
 INSERT INTO `resep_detail` VALUES
 (1,1,1,10,'3x sehari'),
 (2,1,3,1,'2x sehari'),
-(3,2,3,2,'3x sehari');
+(3,2,3,2,'3x sehari'),
+(4,3,1,2,'2x');
 /*!40000 ALTER TABLE `resep_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -848,7 +853,7 @@ CREATE TABLE `tagihan` (
   KEY `tagihan_kasir_id_foreign` (`kasir_id`),
   CONSTRAINT `tagihan_kasir_id_foreign` FOREIGN KEY (`kasir_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
   CONSTRAINT `tagihan_pendaftaran_id_foreign` FOREIGN KEY (`pendaftaran_id`) REFERENCES `pendaftaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -864,7 +869,8 @@ INSERT INTO `tagihan` VALUES
 (3,'INV20260821003',3,'2026-08-21 02:03:15',50000.00,'belum_bayar',NULL,NULL,NULL,'2026-08-21 02:03:15','2026-08-21 02:03:15'),
 (4,'INV20260821004',4,'2026-08-21 02:03:15',365000.00,'belum_bayar',NULL,NULL,NULL,'2026-08-21 02:03:15','2026-08-21 02:37:00'),
 (5,'INV20260821005',5,'2026-08-21 02:09:33',60000.00,'belum_bayar',NULL,NULL,NULL,'2026-08-21 02:09:33','2026-08-21 02:09:33'),
-(6,'INV20260821006',6,'2026-08-21 02:40:27',50000.00,'belum_bayar',NULL,NULL,NULL,'2026-08-21 02:40:27','2026-08-21 02:40:27');
+(6,'INV20260821006',6,'2026-08-21 02:40:27',50000.00,'belum_bayar',NULL,NULL,NULL,'2026-08-21 02:40:27','2026-08-21 02:40:27'),
+(7,'INV20260821007',7,'2026-08-21 03:25:09',102000.00,'lunas','transfer',1,'2026-08-21 03:25:09','2026-08-21 03:25:09','2026-08-21 03:25:25');
 /*!40000 ALTER TABLE `tagihan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -887,7 +893,7 @@ CREATE TABLE `tagihan_detail` (
   PRIMARY KEY (`id`),
   KEY `tagihan_detail_tagihan_id_foreign` (`tagihan_id`),
   CONSTRAINT `tagihan_detail_tagihan_id_foreign` FOREIGN KEY (`tagihan_id`) REFERENCES `tagihan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -911,7 +917,10 @@ INSERT INTO `tagihan_detail` VALUES
 (11,4,'Lab: Gula Darah Puasa',1,40000.00,40000.00),
 (12,4,'Obat: OBH Combi x2',2,20000.00,40000.00),
 (13,4,'Radiologi: Rontgen Thorax PA',1,150000.00,150000.00),
-(14,6,'Konsultasi dr. Ahmad Hidayat',1,50000.00,50000.00);
+(14,6,'Konsultasi dr. Ahmad Hidayat',1,50000.00,50000.00),
+(15,7,'Konsultasi dr. Ahmad Hidayat',1,50000.00,50000.00),
+(16,7,'Tindakan: Konsultasi Dokter',1,50000.00,50000.00),
+(17,7,'Obat: Paracetamol 500mg x2',2,1000.00,2000.00);
 /*!40000 ALTER TABLE `tagihan_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -974,7 +983,7 @@ CREATE TABLE `users` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1007,4 +1016,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-08-21  3:05:55
+-- Dump completed on 2026-08-21  3:28:00

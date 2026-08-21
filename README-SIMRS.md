@@ -59,6 +59,7 @@ php spark serve --port 8080
 | kasir | kasir |
 | lab | laboratorium |
 | radiologi | radiologi |
+| laboratorium | laboratorium |
 
 ## Alur Transaksi
 
