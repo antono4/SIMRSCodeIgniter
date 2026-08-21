@@ -8,13 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         body { background: #f8fafc; }
-        .hero { background: linear-gradient(135deg, #0d47a1, #1976d2); color: #fff; border-radius: 1rem; }
+        .hero { background: linear-gradient(135deg, #065f46, #059669); color: #fff; border-radius: 1rem; }
         .card-poli, .card-dokter { height: 100%; }
-        .badge-tarif { background: #e3f2fd; color: #0d47a1; }
+        .badge-tarif { background: #d1fae5; color: #065f46; }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark" style="background:#0d47a1">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background:#065f46">
     <div class="container">
         <a class="navbar-brand fw-bold" href="<?= base_url('/') ?>">
             <?php if (rs('tampilkan_logo', 'ico') === 'ico'): ?>

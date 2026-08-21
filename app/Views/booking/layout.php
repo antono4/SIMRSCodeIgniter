@@ -7,10 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        body { background: #f0f4fa; }
-        .navbar-booking { background: linear-gradient(90deg,#0d47a1,#1976d2); }
-        .card { border-radius: .75rem; border:0; box-shadow:0 1px 3px rgba(15,23,42,.08); }
-        .card-header { background:#fff; border-bottom:1px solid #eef1f5; }
+        body { background: #f0fdf4; }
+        .navbar-booking { background: linear-gradient(90deg,#065f46,#059669); }
+        .card { border-radius: .75rem; border:0; box-shadow:0 1px 3px rgba(6,95,70,.08); }
+        .card-header { background:#fff; border-bottom:1px solid #d1fae5; }
     </style>
 </head>
 <body>
