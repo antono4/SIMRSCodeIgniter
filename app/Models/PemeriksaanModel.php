@@ -8,7 +8,7 @@ class PemeriksaanModel extends Model
 {
     protected $table         = 'pemeriksaan';
     protected $primaryKey    = 'id';
-    protected $allowedFields = ['pendaftaran_id', 'tanggal', 'anamnesis', 'tekanan_darah', 'suhu', 'berat_badan', 'tinggi_badan', 'diagnosa', 'tindakan_id', 'catatan'];
+    protected $allowedFields = ['pendaftaran_id', 'tanggal', 'anamnesis', 'tekanan_darah', 'suhu', 'berat_badan', 'tinggi_badan', 'diagnosa', 'icd10_id', 'tindakan_id', 'catatan'];
     protected $useTimestamps = true;
 
     public function getRiwayatByPasien(int $pasienId)

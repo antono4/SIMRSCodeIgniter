@@ -14,6 +14,14 @@
             </div>
             <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Tampilkan</button>
             <button type="button" class="btn btn-outline-secondary" onclick="window.print()"><i class="bi bi-printer"></i> Cetak</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-file-earmark-excel"></i> Export CSV</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="<?= base_url('laporan/csv?jenis=kunjungan&dari=' . $dari . '&sampai=' . $sampai) ?>">Data Kunjungan</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('laporan/csv?jenis=pendapatan&dari=' . $dari . '&sampai=' . $sampai) ?>">Data Tagihan/Pendapatan</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('laporan/csv?jenis=obat&dari=' . $dari . '&sampai=' . $sampai) ?>">Mutasi Obat</a></li>
+                </ul>
+            </div>
         </form>
     </div>
 </div>

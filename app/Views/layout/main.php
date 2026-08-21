@@ -43,6 +43,10 @@
                 <li><a class="nav-link" href="<?= base_url('laboratorium') ?>"><i class="bi bi-eyedropper"></i> Laboratorium</a></li>
                 <?php endif; ?>
 
+                <?php if (in_array($role, ['admin', 'dokter', 'radiologi'])): ?>
+                <li><a class="nav-link" href="<?= base_url('radiologi') ?>"><i class="bi bi-radioactive"></i> Radiologi</a></li>
+                <?php endif; ?>
+
                 <?php if (in_array($role, ['admin', 'perawat', 'pendaftaran'])): ?>
                 <li><a class="nav-link" href="<?= base_url('rawat-inap') ?>"><i class="bi bi-house-heart"></i> Rawat Inap</a></li>
                 <?php endif; ?>

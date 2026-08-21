@@ -84,6 +84,17 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
         $routes->post('input-hasil/(:num)', 'Laboratorium::inputHasil/$1', ['filter' => 'auth:admin,laboratorium']);
     });
 
+    $routes->group('radiologi', ['filter' => 'auth:admin,dokter,radiologi'], static function ($routes) {
+        $routes->get('/', 'Radiologi::index');
+        $routes->get('create/(:num)', 'Radiologi::create/$1', ['filter' => 'auth:admin,dokter']);
+        $routes->post('store', 'Radiologi::store', ['filter' => 'auth:admin,dokter']);
+        $routes->get('(:num)', 'Radiologi::show/$1');
+        $routes->post('input-hasil/(:num)', 'Radiologi::inputHasil/$1', ['filter' => 'auth:admin,radiologi']);
+    });
+
+    // Pencarian ICD-10 (JSON) untuk form pemeriksaan
+    $routes->get('icd10/search', 'Icd10::search', ['filter' => 'auth:admin,dokter,perawat']);
+
     $routes->group('resep', ['filter' => 'auth:admin,dokter,farmasi'], static function ($routes) {
         $routes->get('/', 'Resep::index');
         $routes->get('create/(:num)', 'Resep::create/$1');
@@ -100,6 +111,7 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
     });
 
     $routes->get('laporan', 'Laporan::index', ['filter' => 'auth:admin,kasir']);
+    $routes->get('laporan/csv', 'Laporan::csv', ['filter' => 'auth:admin,kasir']);
 
     $routes->group('master', ['filter' => 'auth:admin'], static function ($routes) {
         $routes->get('(:segment)', 'Master::index/$1');

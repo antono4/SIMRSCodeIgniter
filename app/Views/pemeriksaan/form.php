@@ -43,9 +43,15 @@
                     <label class="form-label">Anamnesis</label>
                     <textarea name="anamnesis" class="form-control" rows="2"><?= old('anamnesis') ?></textarea>
                 </div>
-                <div class="col-md-12 mb-3">
-                    <label class="form-label">Diagnosa <span class="text-danger">*</span></label>
-                    <textarea name="diagnosa" class="form-control" rows="2" required><?= old('diagnosa') ?></textarea>
+                <div class="col-md-6 mb-3 position-relative">
+                    <label class="form-label">Diagnosa ICD-10</label>
+                    <input type="hidden" name="icd10_id" id="icd10_id">
+                    <input type="text" id="icd10_search" class="form-control" placeholder="Ketik kode/nama diagnosa..." autocomplete="off">
+                    <div id="icd10_hasil" class="list-group position-absolute w-100" style="z-index:1000"></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Diagnosa (teks) <span class="text-danger">*</span></label>
+                    <textarea name="diagnosa" id="diagnosa" class="form-control" rows="2" required><?= old('diagnosa') ?></textarea>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Tindakan Medis</label>
@@ -66,5 +72,41 @@
         </form>
     </div>
 </div>
+
+<script>
+// Autocomplete ICD-10
+const input = document.getElementById('icd10_search');
+const hasil = document.getElementById('icd10_hasil');
+let timer;
+
+input.addEventListener('input', () => {
+    clearTimeout(timer);
+    const q = input.value.trim();
+    if (q.length < 2) { hasil.innerHTML = ''; return; }
+    timer = setTimeout(async () => {
+        const res = await fetch('<?= base_url('icd10/search') ?>?q=' + encodeURIComponent(q));
+        const data = await res.json();
+        hasil.innerHTML = data.map(i =>
+            `<a href="#" class="list-group-item list-group-item-action" data-id="${i.id}" data-label="${i.kode} - ${i.nama}"><strong>${i.kode}</strong> ${i.nama}</a>`
+        ).join('');
+    }, 300);
+});
+
+hasil.addEventListener('click', (e) => {
+    e.preventDefault();
+    const a = e.target.closest('a');
+    if (!a) return;
+    document.getElementById('icd10_id').value = a.dataset.id;
+    input.value = a.dataset.label;
+    hasil.innerHTML = '';
+    if (!document.getElementById('diagnosa').value) {
+        document.getElementById('diagnosa').value = a.dataset.label;
+    }
+});
+
+document.addEventListener('click', (e) => {
+    if (!hasil.contains(e.target) && e.target !== input) hasil.innerHTML = '';
+});
+</script>
 
 <?= $this->endSection() ?>

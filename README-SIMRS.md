@@ -10,10 +10,11 @@ Aplikasi SIMRS berbasis CodeIgniter 4 dengan database MySQL/MariaDB.
 | Pasien | CRUD data pasien, No. RM otomatis, riwayat pemeriksaan | admin, pendaftaran |
 | Pendaftaran | Registrasi kunjungan (rawat jalan / rawat inap / IGD), nomor antrian & tagihan otomatis dibuat | admin, pendaftaran |
 | Antrian | Manajemen antrian per poli (panggil, panggil berikutnya, lewati, kembalikan), estimasi waktu tunggu, tiket antrian cetak 80mm, layar display publik dengan suara panggilan (TTS) di `/antrian/display` | admin, pendaftaran, perawat, dokter |
-| Laporan | Kunjungan per poli, pendapatan per hari, pasien baru, obat keluar per periode tanggal (dapat dicetak) | admin, kasir |
+| Laporan | Kunjungan per poli, pendapatan per hari, pasien baru, obat keluar per periode tanggal (cetak + export CSV) | admin, kasir |
 | Pemeriksaan | Antrian, anamnesis, vital sign, diagnosa, tindakan (masuk tagihan) | admin, dokter, perawat |
 | Rawat Inap | Registrasi kamar, pulangkan pasien (biaya kamar masuk tagihan) | admin, perawat, pendaftaran |
 | Laboratorium | Order lab dari hasil pemeriksaan (biaya masuk tagihan), input hasil, cetak hasil | admin, dokter, laboratorium |
+| Radiologi | Order radiologi dari pemeriksaan (biaya masuk tagihan), input hasil & kesan, cetak | admin, dokter, radiologi |
 | Obat | CRUD data obat, stok, kartu stok (mutasi masuk/keluar/opname) | admin, farmasi |
 | Resep | Buat resep dari pemeriksaan, proses resep (stok berkurang, masuk tagihan) | admin, dokter, farmasi |
 | Tagihan/Kasir | Invoice, detail biaya, pembayaran (tunai/transfer/BPJS), cetak invoice | admin, kasir |
@@ -45,6 +46,7 @@ php spark serve --port 8080
 | farmasi | farmasi |
 | kasir | kasir |
 | lab | laboratorium |
+| radiologi | radiologi |
 
 ## Alur Transaksi
 
