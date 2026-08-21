@@ -25,6 +25,9 @@
                     <td><?= badge_status($p['jenis_kunjungan']) ?></td>
                     <td><?= badge_status($p['status']) ?></td>
                     <td>
+                        <?php if (! empty($p['no_antrian']) && $p['status'] !== 'batal'): ?>
+                        <a href="<?= base_url('pendaftaran/tiket/' . $p['id']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Cetak tiket antrian"><i class="bi bi-printer"></i></a>
+                        <?php endif; ?>
                         <?php if (in_array($p['status'], ['menunggu', 'diperiksa'])): ?>
                         <a href="<?= base_url('pendaftaran/batal/' . $p['id']) ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Batalkan pendaftaran ini?')">Batal</a>
                         <?php endif; ?>

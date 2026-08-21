@@ -26,12 +26,20 @@ class Antrian extends BaseController
 
         $antrian = $poliId ? $this->model->getAntrianHariIni($poliId) : [];
 
+        foreach ($antrian as &$a) {
+            $a['estimasi'] = in_array($a['status_antrian'], ['menunggu'])
+                ? $this->model->estimasiTunggu($poliId, $a['no_antrian'])
+                : null;
+        }
+        unset($a);
+
         return view('antrian/index', [
             'title'   => 'Manajemen Antrian',
             'poli'    => $poli,
             'poliId'  => $poliId,
             'antrian' => $antrian,
             'dipanggil' => $poliId ? array_filter($antrian, fn ($a) => $a['status_antrian'] === 'dipanggil') : [],
+            'rata_durasi' => $poliId ? $this->model->rataDurasiLayanan($poliId) : 0,
         ]);
     }
 
@@ -96,6 +104,25 @@ class Antrian extends BaseController
             'title'     => 'Display Antrian',
             'dipanggil' => $this->model->getSedangDipanggil(),
             'menunggu'  => $this->model->getAntrianHariIni(),
+        ]);
+    }
+
+    // Data JSON untuk polling layar display (publik)
+    public function displayData()
+    {
+        $menunggu = array_filter(
+            $this->model->getAntrianHariIni(),
+            fn ($m) => in_array($m['status_antrian'], ['menunggu', 'dilayani'])
+        );
+
+        return $this->response->setJSON([
+            'dipanggil' => array_values(array_map(fn ($d) => [
+                'no_antrian' => $d['no_antrian'],
+                'nama'       => $d['nama_pasien'],
+                'poli'       => $d['nama_poli'],
+                'waktu'      => $d['waktu_panggil'],
+            ], $this->model->getSedangDipanggil())),
+            'menunggu' => array_values(array_map(fn ($m) => $m['no_antrian'], $menunggu)),
         ]);
     }
 }

@@ -71,6 +71,33 @@ class PendaftaranModel extends Model
         ]);
     }
 
+    // Rata-rata durasi layanan (menit) dari antrian yang selesai hari ini di poli tsb
+    public function rataDurasiLayanan(int $poliId, ?string $tanggal = null): int
+    {
+        $row = $this->db->query(
+            "SELECT AVG(TIMESTAMPDIFF(MINUTE, waktu_panggil, updated_at)) AS avg_menit
+             FROM pendaftaran
+             WHERE poli_id = ? AND tanggal = ? AND status_antrian = 'selesai' AND waktu_panggil IS NOT NULL",
+            [$poliId, $tanggal ?? date('Y-m-d')]
+        )->getRowArray();
+
+        // Default 10 menit bila belum ada data hari ini
+        return max(1, (int) round((float) ($row['avg_menit'] ?? 10) ?: 10));
+    }
+
+    // Estimasi tunggu (menit) untuk antrian yang masih menunggu di posisi tertentu
+    public function estimasiTunggu(int $poliId, string $noAntrian, ?string $tanggal = null): int
+    {
+        $posisi = $this->where('poli_id', $poliId)
+            ->where('tanggal', $tanggal ?? date('Y-m-d'))
+            ->where('status', 'menunggu')
+            ->whereIn('status_antrian', ['menunggu', 'dipanggil', 'dilayani'])
+            ->where('no_antrian <=', $noAntrian)
+            ->countAllResults();
+
+        return $posisi * $this->rataDurasiLayanan($poliId, $tanggal);
+    }
+
     public function getLengkap()
     {
         return $this->select('pendaftaran.*, pasien.no_rm, pasien.nama AS nama_pasien, poli.nama AS nama_poli, dokter.nama AS nama_dokter')

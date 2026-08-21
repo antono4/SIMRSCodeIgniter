@@ -19,13 +19,16 @@
 </div>
 
 <div class="card">
-    <div class="card-header">Antrian Hari Ini (<?= date('d/m/Y') ?>)</div>
+    <div class="card-header d-flex justify-content-between">
+        <span>Antrian Hari Ini (<?= date('d/m/Y') ?>)</span>
+        <span class="text-muted">Rata-rata layanan: &plusmn;<?= $rata_durasi ?> mnt/pasien</span>
+    </div>
     <div class="card-body p-0">
         <table class="table table-striped table-hover mb-0">
-            <thead><tr><th>No. Antrian</th><th>No. RM</th><th>Pasien</th><th>Dokter</th><th>Jenis</th><th>Status Antrian</th><th>Waktu Panggil</th><th>Aksi</th></tr></thead>
+            <thead><tr><th>No. Antrian</th><th>No. RM</th><th>Pasien</th><th>Dokter</th><th>Jenis</th><th>Status Antrian</th><th>Estimasi Tunggu</th><th>Waktu Panggil</th><th>Aksi</th></tr></thead>
             <tbody>
                 <?php if (empty($antrian)): ?>
-                <tr><td colspan="8" class="text-center text-muted">Belum ada antrian hari ini</td></tr>
+                <tr><td colspan="9" class="text-center text-muted">Belum ada antrian hari ini</td></tr>
                 <?php endif; ?>
                 <?php foreach ($antrian as $a): ?>
                 <tr class="<?= $a['status_antrian'] === 'dipanggil' ? 'table-success' : '' ?>">
@@ -35,6 +38,7 @@
                     <td><?= esc($a['nama_dokter'] ?? '-') ?></td>
                     <td><?= badge_status($a['jenis_kunjungan']) ?></td>
                     <td><?= badge_status($a['status_antrian']) ?></td>
+                    <td><?= $a['estimasi'] !== null ? '&plusmn;' . $a['estimasi'] . ' mnt' : '-' ?></td>
                     <td><?= $a['waktu_panggil'] ? date('H:i:s', strtotime($a['waktu_panggil'])) : '-' ?></td>
                     <td>
                         <?php if (in_array($a['status_antrian'], ['menunggu'])): ?>

@@ -10,6 +10,7 @@ $routes->get('/logout', 'Auth::logout');
 
 // Layar display antrian untuk ruang tunggu (publik)
 $routes->get('/antrian/display', 'Antrian::display');
+$routes->get('/antrian/display-data', 'Antrian::displayData');
 
 $routes->group('', ['filter' => 'auth'], static function ($routes) {
     $routes->get('/dashboard', 'Dashboard::index');
@@ -46,6 +47,7 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
         $routes->get('create', 'Pendaftaran::create');
         $routes->post('store', 'Pendaftaran::store');
         $routes->get('batal/(:num)', 'Pendaftaran::batal/$1');
+        $routes->get('tiket/(:num)', 'Pendaftaran::tiket/$1');
     });
 
     $routes->group('pemeriksaan', ['filter' => 'auth:admin,dokter,perawat'], static function ($routes) {
@@ -83,4 +85,6 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
         $routes->get('(:num)', 'Tagihan::show/$1');
         $routes->post('bayar/(:num)', 'Tagihan::bayar/$1');
     });
+
+    $routes->get('laporan', 'Laporan::index', ['filter' => 'auth:admin,kasir']);
 });

@@ -55,6 +55,7 @@
                 <?php if (in_array($role, ['admin', 'kasir'])): ?>
                 <li class="nav-header">Keuangan</li>
                 <li><a class="nav-link" href="<?= base_url('tagihan') ?>"><i class="bi bi-receipt"></i> Kasir / Tagihan</a></li>
+                <li><a class="nav-link" href="<?= base_url('laporan') ?>"><i class="bi bi-file-earmark-bar-graph"></i> Laporan</a></li>
                 <?php endif; ?>
 
                 <?php if ($role === 'admin'): ?>

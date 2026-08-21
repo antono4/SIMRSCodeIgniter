@@ -52,7 +52,7 @@ class Pendaftaran extends BaseController
         $pendaftaranId = $this->model->getInsertID();
         $this->buatTagihanAwal($pendaftaranId, (int) $data['dokter_id']);
 
-        return redirect()->to('/pendaftaran')->with('success', 'Pendaftaran berhasil. No. Registrasi: ' . $data['no_registrasi'] . ', No. Antrian: ' . $data['no_antrian']);
+        return redirect()->to('/pendaftaran/tiket/' . $pendaftaranId);
     }
 
     public function batal(int $id)
@@ -60,6 +60,20 @@ class Pendaftaran extends BaseController
         $this->model->update($id, ['status' => 'batal', 'status_antrian' => 'dilewati']);
 
         return redirect()->to('/pendaftaran')->with('success', 'Pendaftaran dibatalkan.');
+    }
+
+    public function tiket(int $id)
+    {
+        $pendaftaran = $this->model->getDetail($id);
+        if (! $pendaftaran) {
+            return redirect()->to('/pendaftaran')->with('error', 'Data pendaftaran tidak ditemukan.');
+        }
+
+        return view('pendaftaran/tiket', [
+            'title'       => 'Tiket Antrian',
+            'pendaftaran' => $pendaftaran,
+            'estimasi'    => $this->model->estimasiTunggu((int) $pendaftaran['poli_id'], $pendaftaran['no_antrian'], $pendaftaran['tanggal']),
+        ]);
     }
 
     private function buatTagihanAwal(int $pendaftaranId, int $dokterId): void
