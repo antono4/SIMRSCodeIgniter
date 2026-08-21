@@ -22,3 +22,4 @@
 - Rekam medis: `RekamMedis::show/cetak(pendaftaranId)` menggabungkan pendaftaran + pemeriksaan + resep + lab + rawat inap dalam satu episode; resume cetak di `rekam_medis/cetak.php`
 - Profil: `Profil::gantiPassword` — verifikasi password lama, min 6, konfirmasi sama
 - Appointment: tabel `appointment` (kode APTyymm####); `Appointment::daftarkan()` mengonversi booking → pendaftaran + antrian + invoice (logika billing duplikat dari `Pendaftaran::buatTagihanAwal` — kandidat refaktor bila menyentuh keduanya); cek bentrok jam di `store()`
+- Booking publik: controller `Booking` tanpa auth (`/booking`, `/booking/store`, `/booking/sukses/{kode}`, `/booking/cek`); pasien lama dikenali via `no_rm`, pasien baru auto-dibuat dengan `generateNoRm()`; layout khusus `Views/booking/layout.php`; cek status butuh kode + no_rm (proteksi sederhana)

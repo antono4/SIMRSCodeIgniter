@@ -12,6 +12,12 @@ $routes->get('/logout', 'Auth::logout');
 $routes->get('/antrian/display', 'Antrian::display');
 $routes->get('/antrian/display-data', 'Antrian::displayData');
 
+// Booking online publik (tanpa login)
+$routes->get('/booking', 'Booking::index');
+$routes->post('/booking/store', 'Booking::store');
+$routes->get('/booking/sukses/(:segment)', 'Booking::sukses/$1');
+$routes->get('/booking/cek', 'Booking::cek');
+
 $routes->group('', ['filter' => 'auth'], static function ($routes) {
     $routes->get('/dashboard', 'Dashboard::index');
 
