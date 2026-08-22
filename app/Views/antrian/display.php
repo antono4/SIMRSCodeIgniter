@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Display Antrian - SIMRS</title>
+    <link rel="icon" type="image/svg+xml" href="<?= base_url("favicon.svg") ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background: #022c22; color: #fff; min-height: 100vh; }
