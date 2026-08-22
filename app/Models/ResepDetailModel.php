@@ -21,10 +21,13 @@ class ResepDetailModel extends Model
 
     public function totalHarga(int $resepId): float
     {
-        $row = $this->selectSum('obat.harga_jual * resep_detail.jumlah', 'total')
-            ->join('obat', 'obat.id = resep_detail.obat_id')
-            ->where('resep_detail.resep_id', $resepId)
-            ->get()->getRowArray();
+        $row = $this->db->query(
+            "SELECT SUM(obat.harga_jual * resep_detail.jumlah) AS total
+             FROM resep_detail
+             JOIN obat ON obat.id = resep_detail.obat_id
+             WHERE resep_detail.resep_id = ?",
+            [$resepId]
+        )->getRowArray();
 
         return (float) ($row['total'] ?? 0);
     }
