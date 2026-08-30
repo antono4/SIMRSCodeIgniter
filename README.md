@@ -1,84 +1,80 @@
-# SIMRS — Sistem Informasi Manajemen Rumah Sakit
+<!-- README ini dihasilkan otomatis oleh workflow .github/workflows/generate-readme.yml -->
+<!-- Jangan edit manual; perubahan akan ditim pada run berikutnya. -->
 
-Aplikasi SIMRS lengkap berbasis **CodeIgniter 4 (PHP 8+)** dengan database **MySQL/MariaDB**, Bootstrap 5, dan Chart.js. Mencakup alur end-to-end: booking publik → pendaftaran antrian → pemeriksaan → lab/radiologi/resep → rawat inap → kasir → laporan.
+<h1 align="center">Project 👋</h1>
 
-## Fitur Utama
+<p align="center">
+  <strong></strong>
+</p>
 
-- **Halaman publik** (tanpa login): landing (`/`) dengan daftar poli & dokter, booking online (`/booking`), cek status booking (`/booking/cek`), dan display TV antrian publik (`/antrian/display`) dengan suara panggilan TTS Bahasa Indonesia
-- **Pendaftaran & Antrian**: No. RM & registrasi otomatis, nomor antrian per poli per hari (UMU-001...), panggil/lewati/kembalikan, estimasi waktu tunggu, tiket cetak 80mm
-- **Pelayanan medis**: form pemeriksaan dengan tanda vital, autocomplete **ICD-10**, order **Laboratorium** & **Radiologi** dari riwayat, resep dengan pengurangan stok otomatis
-- **Farmasi**: data obat, **kartu stok** (mutasi masuk/keluar/opname lengkap dengan referensi dan user)
-- **Rawat Inap**: registrasi kamar, okupansi otomatis, pulangkan pasien (biaya kamar masuk tagihan)
-- **Keuangan**: invoice terperinci, pembayaran tunai/transfer/BPJS, cetak invoice dengan stempel LUNAS
-- **Rekam Medis**: satu episode lengkap (pemeriksaan + ICD-10 + lab + radiologi + resep + rawat inap), cetak resume medis
-- **Laporan**: kunjungan per poli, pendapatan per hari, pasien baru, obat keluar, **export CSV** (kujungan/pendapatan/mutasi obat)
-- **Keamanan**: RBAC 8 role dengan filter route, CSRF proteksi, session-file, ganti password halaman profil
-
-## Modul & Role
-
-| Modul | Role |
-|---|---|
-| Dashboard (statistik + grafik 7 hari) | Semua |
-| Pasien, Pendaftaran, Appointment, Antrian | admin, pendaftaran |
-| Pemeriksaan, Rekam Medis | admin, dokter, perawat |
-| Laboratorium | admin, dokter, laboratorium |
-| Radiologi | admin, dokter, radiologi |
-| Rawat Inap | admin, perawat, pendaftaran |
-| Obat, Resep, Kartu Stok | admin, farmasi |
-| Tagihan/Kasir, Laporan | admin, kasir |
-| Dokter, Master (poli/kamar/tindakan), User | admin |
-| Profil | Semua |
-
-## Role & Akun Default (password: `password`)
-
-| Username | Role |
-|---|---|
-| admin | admin |
-| pendaftaran | pendaftaran |
-| dokter | dokter |
-| perawat | perawat |
-| farmasi | farmasi |
-| kasir | kasir |
-| lab | laboratorium |
-| radiologi | radiologi |
-
-## Setup
-
-### Cara 1 — Import dump (paling cepat, sudah termasuk data awal)
-
-```bash
-composer install
-cp env .env          # sesuaikan database.default.*
-mysql -u root -p < database/simrs.sql
-php spark serve --port 8080
-```
-
-### Cara 2 — Migration + seeder dari awal
-
-```bash
-composer install
-cp env .env
-php spark migrate
-php spark db:seed SimrsSeeder
-php spark serve --port 8080
-```
-
-Buka **http://localhost:8080** (landing publik). Login staff di `/login`.
-
-## Teknologi
-
-- PHP 8.4, CodeIgniter 4.7, MariaDB/MySQL
-- Bootstrap 5, Bootstrap Icons, Chart.js (via CDN — tanpa build step)
-- Web Speech API untuk suara panggilan antrian (id-ID)
-- MySQL dump di `database/simrs.sql` (skema + data awal lengkap)
-
-## Struktur
-
-- `app/Controllers` — 24 controller; `App\Libraries\Billing` pusat tagihan
-- `app/Models` — model per tabel dengan helper penomoran (REG/RM/RSP/INV/LAB/RAD/APT)
-- `app/Database/Migrations` — 13 migration; `Seeds` dengan seeder per modul
-- `app/Views` — layout internal + landing/booking/display publik; AdminLTE-like flat UI
-- `app/Filters/AuthFilter` — RBAC per route (`auth` & `auth:role1,role2`)
+<p align="center">
+  <a href="https://github.com/antono4/SIMRSCodeIgniter"><img alt="GitHub repo" src="https://img.shields.io/badge/GitHub-antono4/SIMRSCodeIgniter-blue?logo=github"></a>
+  <a href="https://antono4.github.io/SIMRSCodeIgniter/"><img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-Online-success?logo=githubpages"></a>
+  <img alt="Files" src="https://img.shields.io/badge/Files-223-informational">
+  <img alt="Updated" src="https://img.shields.io/badge/Updated-2026-08-30 15:13:30 WIB-lightgrey">
+</p>
 
 ---
-Catatan: ganti password default `password` via halaman Profil. Untuk produksi, ubah juga database creds di `.env` — tanpa push ke repo publik.
+
+## 📖 Tentang
+
+Repository **`SIMRSCodeIgniter`** adalah situs web pribadi / portofolio yang diterbitkan melalui **GitHub Pages**. Situs utama berada di [`https://antono4.github.io/SIMRSCodeIgniter/`](https://antono4.github.io/SIMRSCodeIgniter/).
+
+## 🗂️ Struktur Proyek
+
+```
+SIMRSCodeIgniter/
+├── index.html          # Halaman utama (landing / portofolio)
+├── assets/             # Aset statis (css, js, img, vendor)
+├── forms/               # Form handler (PHP)
+└── app/              # 403 Forbidden  ->  https://antono4.github.io/SIMRSCodeIgniter/app/
+└── tests/              # Running Application Tests  ->  https://antono4.github.io/SIMRSCodeIgniter/tests/
+└── writable/              # 403 Forbidden  ->  https://antono4.github.io/SIMRSCodeIgniter/writable/
+```
+
+## 🌐 Sub-Proyek / Demo
+
+Situs ini juga memuat beberapa sub-proyek (masing-masing punya `index.html` tersendiri):
+
+| Folder | Demo Live | Keterangan |
+|--------|-----------|-----------|
+| [`app`](./app) | [https://antono4.github.io/SIMRSCodeIgniter/app/](https://antono4.github.io/SIMRSCodeIgniter/app/) | 403 Forbidden |
+| [`tests`](./tests) | [https://antono4.github.io/SIMRSCodeIgniter/tests/](https://antono4.github.io/SIMRSCodeIgniter/tests/) | Running Application Tests |
+| [`writable`](./writable) | [https://antono4.github.io/SIMRSCodeIgniter/writable/](https://antono4.github.io/SIMRSCodeIgniter/writable/) | 403 Forbidden |
+
+## 🛠️ Teknologi
+
+Berdasarkan isi repository, proyek ini menggunakan:
+
+- `HTML`
+- `CSS`
+- `JavaScript`
+- `PHP`
+
+> Total **223 file** terdeteksi di repository.
+
+## 🚀 Menjalankan Secara Lokal
+
+Karena ini situs statis (HTML/CSS/JS/PHP), cukup buka `index.html` di browser, atau jalankan server lokal:
+
+```bash
+# Tanpa dependency
+python3 -m http.server 8000
+# lalu buka http://localhost:8000
+
+# atau dengan PHP (untuk form handler di forms/)
+php -S localhost:8000
+```
+
+## 📬 Kontak
+
+- GitHub: [antono4](https://github.com/antono4)
+- Situs: [https://antono4.github.io/SIMRSCodeIgniter/](https://antono4.github.io/SIMRSCodeIgniter/)
+
+## 📄 Lisensi
+
+Lihat berkas [`LICENSE`](./LICENSE) untuk informasi lisensi.
+
+---
+
+<sub>README ini di-generate otomatis pada **2026-08-30 15:13:30 WIB** oleh GitHub Actions .</sub>
