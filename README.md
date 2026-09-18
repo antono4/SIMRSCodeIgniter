@@ -1,119 +1,80 @@
-<!-- README ini dihasilkan otomatis oleh .github/workflows/generate-readme.yml -->
-<!-- Jangan edit manual: perubahan akan ditimpa pada run berikutnya. -->
+<!-- README ini dihasilkan otomatis oleh workflow .github/workflows/generate-readme.yml -->
+<!-- Jangan edit manual; perubahan akan ditim pada run berikutnya. -->
 
-<h1 align="center">SIMRSCodeIgniter 👋</h1>
+<h1 align="center">Project 👋</h1>
+
+<p align="center">
+  <strong></strong>
+</p>
 
 <p align="center">
   <a href="https://github.com/antono4/SIMRSCodeIgniter"><img alt="GitHub repo" src="https://img.shields.io/badge/GitHub-antono4/SIMRSCodeIgniter-blue?logo=github"></a>
-  <img alt="Files" src="https://img.shields.io/badge/Files-218-informational">
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/antono4/SIMRSCodeIgniter">
+  <a href="https://antono4.github.io/SIMRSCodeIgniter/"><img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-Online-success?logo=githubpages"></a>
+  <img alt="Files" src="https://img.shields.io/badge/Files-221-informational">
+  <img alt="Updated" src="https://img.shields.io/badge/Updated-2026-09-18 07:05:05 WIB-lightgrey">
 </p>
 
 ---
 
 ## 📖 Tentang
 
-Repository **`SIMRSCodeIgniter`** adalah proyek PHP yang dibangun dengan HTML, CSS, JavaScript, PHP.
-GitHub Pages belum diaktifkan untuk repository ini.
+Repository **`SIMRSCodeIgniter`** adalah situs web pribadi / portofolio yang diterbitkan melalui **GitHub Pages**. Situs utama berada di [`https://antono4.github.io/SIMRSCodeIgniter/`](https://antono4.github.io/SIMRSCodeIgniter/).
 
 ## 🗂️ Struktur Proyek
 
 ```
 SIMRSCodeIgniter/
-.env
-.github/
-  workflows/
-.gitignore
-AGENTS.md
-LICENSE
-app/
-  .htaccess
-  Common.php
-  Config/
-  Controllers/
-  Database/
-  Filters/
-  Helpers/
-  Language/
-  Libraries/
-  Models/
-  ThirdParty/
-  Views/
-  index.html
-builds
-composer.json
-composer.lock
-database/
-  simrs.sql
-docs/
-  USER-GUIDE.md
-env
-phpunit.dist.xml
-preload.php
-public/
-  .htaccess
-  favicon.svg
-  index.php
-  robots.txt
-spark
-tests/
-  .htaccess
-  README.md
-  _support/
-  database/
-  index.html
-  session/
-  unit/
-writable/
-  .htaccess
-  cache/
-  debugbar/
-  index.html
-  logs/
-  session/
-  uploads/
+├── index.html          # Halaman utama (landing / portofolio)
+├── assets/             # Aset statis (css, js, img, vendor)
+├── forms/               # Form handler (PHP)
+└── app/              # 403 Forbidden  ->  https://antono4.github.io/SIMRSCodeIgniter/app/
+└── tests/              # Running Application Tests  ->  https://antono4.github.io/SIMRSCodeIgniter/tests/
+└── writable/              # 403 Forbidden  ->  https://antono4.github.io/SIMRSCodeIgniter/writable/
 ```
 
 ## 🌐 Sub-Proyek / Demo
 
-Repository ini juga memuat sub-proyek (masing-masing punya `index.html` tersendiri):
+Situs ini juga memuat beberapa sub-proyek (masing-masing punya `index.html` tersendiri):
 
-| Folder | Keterangan |
-|--------|-----------|
-| [`app`](./app) | 403 Forbidden |
-| [`tests`](./tests) | Running Application Tests |
-| [`writable`](./writable) | 403 Forbidden |
+| Folder | Demo Live | Keterangan |
+|--------|-----------|-----------|
+| [`app`](./app) | [https://antono4.github.io/SIMRSCodeIgniter/app/](https://antono4.github.io/SIMRSCodeIgniter/app/) | 403 Forbidden |
+| [`tests`](./tests) | [https://antono4.github.io/SIMRSCodeIgniter/tests/](https://antono4.github.io/SIMRSCodeIgniter/tests/) | Running Application Tests |
+| [`writable`](./writable) | [https://antono4.github.io/SIMRSCodeIgniter/writable/](https://antono4.github.io/SIMRSCodeIgniter/writable/) | 403 Forbidden |
 
 ## 🛠️ Teknologi
 
-Berdasarkan ekstensi berkas yang terdeteksi di repository:
+Berdasarkan isi repository, proyek ini menggunakan:
 
 - `HTML`
 - `CSS`
 - `JavaScript`
 - `PHP`
 
-> Total **218 berkas** di repository (di luar `.git`, `node_modules`, `dist`, dan `build`).
+> Total **221 file** terdeteksi di repository.
 
 ## 🚀 Menjalankan Secara Lokal
 
-Butuh PHP dan Composer:
+Karena ini situs statis (HTML/CSS/JS/PHP), cukup buka `index.html` di browser, atau jalankan server lokal:
 
 ```bash
-composer install
-php spark serve
-# atau
-php -S localhost:8000 -t public
+# Tanpa dependency
+python3 -m http.server 8000
+# lalu buka http://localhost:8000
+
+# atau dengan PHP (untuk form handler di forms/)
+php -S localhost:8000
 ```
 
 ## 📬 Kontak
 
 - GitHub: [antono4](https://github.com/antono4)
+- Situs: [https://antono4.github.io/SIMRSCodeIgniter/](https://antono4.github.io/SIMRSCodeIgniter/)
 
 ## 📄 Lisensi
 
-Proyek ini dilisensikan di bawah MIT License — lihat berkas [`LICENSE`](./LICENSE).
+Lihat berkas [`LICENSE`](./LICENSE) untuk informasi lisensi.
 
 ---
 
-<sub>README ini di-generate otomatis oleh GitHub Actions `.github/workflows/generate-readme.yml`.</sub>
+<sub>README ini di-generate otomatis pada **2026-09-18 07:05:05 WIB** oleh GitHub Actions `.github/workflows/generate-readme.yml`.</sub>
